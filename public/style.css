@@ -2,6 +2,9 @@
 @import './styles/navbar.css';
 @import './styles/footer.css';
 @import './styles/notfoundpage.css';
+@import './styles/products.css';
+@import './styles/singleProduct.css';
+@import './styles/cart.css';
 
 
 html {

@@ -1,0 +1,130 @@
+.cart-container {
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    border-radius: 10px;
+    height: 30rem;
+
+    /* box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); */
+  }
+
+  /* RIGHT SIDE */
+  .cart-card-right {
+    display: flex;
+    flex-direction: column;
+    background-color: #75d9ef ;
+    color: black;
+    height: 20rem;
+    margin-right: 1.5rem;
+    margin-top: 1rem;
+    border-radius: 10px;
+    box-shadow: 0 .5rem .75rem rgba(19, 19, 18, 0.164);
+    transition-duration: .5s;
+    }
+
+
+    /* LEFT SIDE */
+  .shopping-cart-left-container {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .checkout-card-row {
+    display: flex;
+    justify-content: space-between;
+    margin: 1rem 2rem;
+  }
+
+  .checkout-card-inline-block {
+    display: inline-block;
+  }
+
+  /* BUTTONS */
+  .delete-btn {
+    border-radius: 10px;
+    background-color:#085162;
+    font-size: .7rem;
+    font-weight: bold;
+    padding: 0.5rem;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    transition: .2s;
+  }
+
+  .delete-btn:hover {
+    background-color: #75d9ef;
+  }
+
+  .checkout-btn {
+    border-radius: 10px;
+    background-color:#085162;
+    height: 45px;
+    padding: 12px;
+    width: 260px;
+    font-size: .8rem;
+    font-weight: bold;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    margin: 20px auto;
+    transition: .2s;
+  }
+  .checkout-btn:hover {
+    background-color: #75d9ef;
+  }
+
+  /* LINE BREAK */
+  .shopping-cart-title {
+    font-size: 1rem;
+    text-align: center;
+  }
+
+  .quantity-section {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin: 0;
+    padding: 0;
+  }
+
+  .increment-btn {
+    border-radius: 10px;
+    background-color: #ffffff;
+    color:#085162;
+    height: 15px;
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+    vertical-align: middle;
+    border: none;
+    cursor: pointer;
+    transition: .2s;
+  }
+  .increment-btn:hover {
+    color: #75d9ef;
+  }
+
+  .product-sec {
+    width: 15rem;
+  }
+
+  .quantity-sec {
+    width: 8rem;
+  }
+
+  .price-sec {
+    width: 8rem;
+  }
+
+  .quantity-sec-heading {
+    padding-right: .75rem;
+  }
+
+  .price-sec-heading {
+    padding-right: 2rem;
+  }
+
+  .checkout-button-cont {
+    display: flex;
+    justify-content: space-around;
+  }
