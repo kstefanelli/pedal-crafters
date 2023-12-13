@@ -1,70 +1,95 @@
-# Getting Started with Create React App
+<p align="center" style="font-style: italic">
+  PedalCrafters is an e-commerce website. View deployed version here: [PedalCrafters](#)
+</p>
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Table of Contents
 
-## Available Scripts
+- [Introduction](#introduction)
+- [Getting Started](#getting-started)
+- [Technologies Used](#technologies-used)
+- [Next Steps](#next-steps)
 
-In the project directory, you can run:
+## Introduction
 
-### `npm start`
+PedalCrafters is an e-commerce website designed to offer a seamless shopping experience for bicycle enthusiasts. It is built with a focus on user-friendly navigation and responsiveness across various devices. The project is developed using React.js, Node.js, Express, PostgreSQL, HTML, CSS, and hosted on Heroku.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Getting Started
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### Prerequisites
 
-### `npm test`
+- [Node.js](https://nodejs.org/)
+- [PostgreSQL](https://www.postgresql.org/)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Installation
 
-### `npm run build`
+1. Clone the repository
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+   ```bash
+   git clone <repository_url>
+   ```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+2. Navigate to the project directory
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+   ```bash
+   cd PedalCrafters
+   ```
 
-### `npm run eject`
+3. Install dependencies
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+   ```bash
+   npm install
+   ```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+4. Create the database
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+   ```bash
+   createdb pedal-crafters
+   ```
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+5. Seed the database with sample data
 
-## Learn More
+   ```bash
+   npm run seed
+   ```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+6. Run the project
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+   ```bash
+   npm run start:dev
+   ```
 
-### Code Splitting
+7. Visit [http://localhost:8080](http://localhost:8080) in your browser to explore PedalCrafters.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## Technologies Used
 
-### Analyzing the Bundle Size
+<p align="center">
+  <a href="https://skillicons.dev">
+    <img src="https://skillicons.dev/icons?i=react,redux,js,nodejs,express" />
+  </a>
+</p>
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+<p align="center">
+  <a href="https://skillicons.dev">
+    <img src="https://skillicons.dev/icons?i=postgres,html,css,heroku" />
+  </a>
+</p>
 
-### Making a Progressive Web App
+<br/>
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+# Next Steps for Development:
 
-### Advanced Configuration
+1. Incorporate TypeScript
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+2. Integrate Tailwind CSS
 
-### Deployment
+3. Modernize Components with Functional Syntax
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+4. Enhance User Experience with Query Parameters
 
-### `npm run build` fails to minify
+5. Integrate Stripe for Secure Payments
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+6. Optimize Sign-In and Registration with Modal Approach
+
+7. Strengthen Application by Expanding Test Coverage
+
+8. Convert images to the WebP format for improved performance
