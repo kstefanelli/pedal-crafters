@@ -1,0 +1,34 @@
+footer {
+    bottom: 0;
+    width: 100%;
+    left: 0;
+    right: 0;
+  }
+
+  .footer-container {
+    background-color: #75d9ef;
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .footer-list {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+  }
+
+  .footer-link {
+    color: #017f9b;
+    text-decoration: none;
+    transition-duration: 0.2s;
+    padding-right: 10px;
+  }
+
+  .footer-link:hover {
+    color: #02191f;
+  }
