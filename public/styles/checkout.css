@@ -1,0 +1,47 @@
+.billing-details-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width:auto;
+    justify-items: center;
+}
+
+.shipping-info-field {
+    width: 80%;
+    border-radius: 10px;
+    margin: 10px auto;
+    padding: 11px 15px;
+    background-color: rgb(245, 245, 245);
+    outline: none;
+    border: 1px solid rgb(0, 0, 0, 0);
+    font-size: 15px;
+    color: rgb(30, 30, 30);
+    transition: .2s;
+}
+.shipping-info-field::placeholder {
+    color: rgb(200, 200, 200);
+}
+.shipping-info-field:hover {
+    background-color: #F1EFF1;
+}
+.shipping-info-field:focus {
+    background-color: #fff;
+    box-shadow: 0 0 4px 2px rgb(50, 50, 50, .1);
+}
+
+.complete-checkout-btn {
+    border-radius: 10px;
+    background-color:#085162;
+    height: 45px;
+    padding: 12px;
+    width: 260px;
+    font-size: 14px;
+    font-weight: bold;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    margin: 2rem 2rem;
+    transition: .2s;
+}
+.complete-checkout-btn:hover {
+    background-color: #75d9ef;
+}
