@@ -12,6 +12,7 @@
 @import './styles/notfoundpage.css';
 @import './styles/allusers.css';
 @import './styles/mediaqueries.css';
+@import './styles/checkout.css';
 
 html {
   font-family: "Roboto", Helvetica, sans-serif;

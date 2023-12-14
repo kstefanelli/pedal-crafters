@@ -38,13 +38,13 @@ const OrderHistory = ({ orders, getOrders }) => {
                     </Link>
                   </div>
                   <span style={{ fontSize: '.8rem' }} className="s-order-price">
-                    {(item.price / 10000).toLocaleString('en-US', { style: 'currency', currency: 'USD' })}
+                    {(item.price / 100).toLocaleString('en-US', { style: 'currency', currency: 'USD' })}
                   </span>
                   <span style={{ fontSize: '.8rem' }} className="s-order-quantity">
                     {item.cartItem.quantity}
                   </span>
                   <span style={{ fontSize: '.8rem' }}>
-                  {((item.cartItem.quantity * item.price) / 10000).toLocaleString('en-US', { style: 'currency', currency: 'USD' })}
+                  {((item.cartItem.quantity * item.price) / 100).toLocaleString('en-US', { style: 'currency', currency: 'USD' })}
                   </span>
                 </div>
               ))}
