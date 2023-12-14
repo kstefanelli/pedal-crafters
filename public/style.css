@@ -9,6 +9,9 @@
 @import './styles/admin.css';
 @import './styles/allUsers.css';
 @import './styles/userProfile.css';
+@import './styles/mediaqueries.css';
+@import './styles/forms.css';
+@import './styles/order.css';
 
 
 html {
