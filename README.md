@@ -1,5 +1,5 @@
 <p align="center" style="font-style: italic">
-  PedalCrafters is an e-commerce website. View deployed version here: [PedalCrafters](#)
+  PedalCrafters is an e-commerce website. View deployed version here: https://pedal-crafter-d29c20011a41.herokuapp.com/
 </p>
 
 ## Table of Contents
