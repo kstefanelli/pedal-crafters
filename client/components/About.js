@@ -17,7 +17,7 @@ const technologies = [
 
 export default function About() {
   return (
-    <div className='about-container'>
+    <div className='about-container '>
       <div className='about-technologies-container'>
         <h3 className='about-technologies-heading'>
           Technologies used to build PedalCrafters:

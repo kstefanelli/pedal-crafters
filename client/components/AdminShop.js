@@ -41,7 +41,7 @@ export class AdminShop extends Component {
     });
 
     return (
-      <section className='grid-section'>
+      <section className='grid-section '>
         Bicycles
         <div className='grid-container'>
           <div className='grid-section-left'>
@@ -49,7 +49,7 @@ export class AdminShop extends Component {
             <p className='grid-section-left-category-bold'>Categories</p>
             <ul>
               <li
-                className='cat-list'
+                className='all-categories-list'
                 onClick={() => {
                   this.handleFilterClick("All");
                 }}
