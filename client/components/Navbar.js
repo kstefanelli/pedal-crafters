@@ -2,7 +2,6 @@ import React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { logout } from "../store";
-
 const Navbar = ({ isLoggedIn, isAdmin }) => {
   const commonItems = [
     { path: "/about", label: "About", show: true },
@@ -10,9 +9,7 @@ const Navbar = ({ isLoggedIn, isAdmin }) => {
     { path: "/signin", label: "Sign in", show: !isLoggedIn },
     { path: "/cart", label: "🛒", show: true },
   ];
-
   const adminItems = [{ path: "/admin", label: "Admin", show: isAdmin }];
-
   const navItems = isLoggedIn ? [...commonItems, ...adminItems] : commonItems;
 
   return (
@@ -37,14 +34,12 @@ const Navbar = ({ isLoggedIn, isAdmin }) => {
     </div>
   );
 };
-
 const mapStateToProps = (state) => {
   return {
     isLoggedIn: !!state.auth.id,
     isAdmin: !!state.auth.isAdmin,
   };
 };
-
 const mapDispatchToProps = (dispatch) => {
   return {
     handleClick() {
@@ -52,5 +47,4 @@ const mapDispatchToProps = (dispatch) => {
     },
   };
 };
-
 export default connect(mapStateToProps, mapDispatchToProps)(Navbar);
