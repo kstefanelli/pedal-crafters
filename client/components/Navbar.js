@@ -1,45 +1,185 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
 import { logout } from "../store";
-const Navbar = ({ isLoggedIn, isAdmin }) => {
+import useMediaQuery from "../hooks/useMediaQuery";
+
+const scrollToTop = () => {
+  window.scrollTo(0, 0);
+};
+
+const CustomLink = ({ page, selectedPage, setSelectedPage, onClick }) => {
+  const lowerCasePage = page.toLowerCase();
+  const linkText =
+    page === "" ? "Home" : page.charAt(0).toUpperCase() + page.slice(1);
+
+  const handleClick = () => {
+    setSelectedPage(lowerCasePage);
+    onClick();
+    scrollToTop();
+  };
+
+  return (
+    <Link
+      to={page === "" ? "/" : `/${page}`}
+      className={`${
+        selectedPage === lowerCasePage ||
+        (selectedPage === "Home" && lowerCasePage === "")
+          ? "text-orange-400 underline underline-offset-4 decoration-2"
+          : ""
+      } hover:text-orange transition duration-500 hover:underline hover:underline-offset-4 hover:decoration-2`}
+      aria-label={`Link to the ${page === "" ? "Home" : page} page`}
+      onClick={handleClick}
+    >
+      {linkText}
+    </Link>
+  );
+};
+
+const Navbar = ({ isTopOfPage, isLoggedIn, isAdmin }) => {
+  const [selectedPage, setSelectedPage] = useState("Home");
+  const [isMenuToggled, setIsMenuToggled] = useState(false);
+  const isDesktop = useMediaQuery("(min-width: 768px)");
+  const navbarBackground = isTopOfPage ? "" : "bg-[#75d9ef]";
+
+  const location = useLocation();
+
   const commonItems = [
-    { path: "/about", label: "About", show: true },
+    { path: "/products", label: "Products", show: true },
+    // { path: "/about", label: "About", show: true },
     { path: "/profile", label: "Profile", show: isLoggedIn },
     { path: "/signin", label: "Sign in", show: !isLoggedIn },
     { path: "/cart", label: "🛒", show: true },
   ];
   const adminItems = [{ path: "/admin", label: "Admin", show: isAdmin }];
-  const navItems = isLoggedIn ? [...commonItems, ...adminItems] : commonItems;
+  const navItems = [
+    ...commonItems.filter((item) => item.show),
+    ...adminItems.filter((item) => item.show),
+  ];
+
+  useEffect(() => {
+    const pathname = location.pathname;
+    const currentPage = pathname === "/" ? "Home" : pathname.substring(1);
+    const titleMap = {
+      Home: "Pedal Crafters",
+      products: "Products - Pedal Crafters",
+      "edit/products": "Products - Pedal Crafters",
+      // about: "About - Pedal Crafters",
+      profile: "Profile - Pedal Crafters",
+      signin: "Sign in - Pedal Crafters",
+      admin: "Admin - Pedal Crafters",
+      cart: "Cart - Pedal Crafters",
+    };
+    document.title = titleMap[currentPage] || "404 Not Found - Pedal Crafters";
+    setSelectedPage(currentPage);
+  }, [location.pathname, selectedPage]);
+
+  useEffect(() => {
+    document.documentElement.classList.toggle("mobile-nav-open", isMenuToggled);
+    document.documentElement.classList.toggle("overflow-hidden", isMenuToggled);
+
+    return () => {
+      document.documentElement.classList.remove(
+        "mobile-nav-open",
+        "overflow-hidden"
+      );
+    };
+  }, [isMenuToggled]);
 
   return (
-    <div>
-      <nav>
-        <div className='nav-container'>
-          <Link to='/' className='navLink'>
-            PedalCrafters
+    <nav
+      data-nosnippet
+      className={`${navbarBackground} z-40 w-full sticky top-0 py-5`}
+    >
+      <div className='flex items-center justify-between mx-auto w-5/6'>
+        <h4 className={`text-xl font-bold ${isMenuToggled ? "z-50" : ""}`}>
+          <Link
+            to='/'
+            aria-label='Pedal Crafters Logo'
+            className='hover:text-orange-500 transition duration-500'
+            onClick={() => {
+              scrollToTop();
+              setIsMenuToggled(false);
+            }}
+          >
+            Pedal Crafters
           </Link>
-          <div>
-            {navItems.map(
-              (item, index) =>
-                item.show && (
-                  <Link key={index} to={item.path} className='navLink'>
-                    {item.label}
-                  </Link>
-                )
-            )}
+        </h4>
+        {isDesktop ? (
+          <div className='flex justify-between gap-4 text-sm font-extrabold'>
+            {navItems.map((item, index) => (
+              <CustomLink
+                key={index}
+                page={item.path === "/" ? "" : item.path.substring(1)}
+                selectedPage={selectedPage}
+                setSelectedPage={setSelectedPage}
+                onClick={() => setIsMenuToggled(false)}
+              />
+            ))}
           </div>
-        </div>
-      </nav>
-    </div>
+        ) : (
+          <div>
+            <button
+              onClick={() => {
+                setIsMenuToggled(!isMenuToggled);
+              }}
+              aria-label='menu-icon'
+            >
+              <img
+                alt='menu-icon'
+                src='/assets/menu-icon.svg'
+                width='24'
+                height='24'
+              />
+            </button>
+          </div>
+        )}
+        {!isDesktop && (
+          <div
+            className={`transition-transform transform duration-500 ${
+              isMenuToggled ? "translate-x-0" : "translate-x-full"
+            } fixed top-0 right-0 min-h-[100vh] bg-[#75d9ef] w-screen`}
+          >
+            <div className='flex justify-end py-6 mx-auto w-5/6'>
+              <button
+                onClick={() => {
+                  setIsMenuToggled(!isMenuToggled);
+                }}
+                aria-label='close-icon'
+              >
+                <img
+                  alt='close-icon'
+                  src='/assets/close-icon.svg'
+                  width='24'
+                  height='24'
+                />
+              </button>
+            </div>
+            <div className='flex flex-col text-center gap-5 my-10 text-2xl font-semibold'>
+              {navItems.map((item, index) => (
+                <CustomLink
+                  key={index}
+                  page={item.path === "/" ? "" : item.path.substring(1)}
+                  selectedPage={selectedPage}
+                  setSelectedPage={setSelectedPage}
+                  onClick={() => setIsMenuToggled(false)}
+                />
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
+    </nav>
   );
 };
+
 const mapStateToProps = (state) => {
   return {
     isLoggedIn: !!state.auth.id,
     isAdmin: !!state.auth.isAdmin,
   };
 };
+
 const mapDispatchToProps = (dispatch) => {
   return {
     handleClick() {
@@ -47,4 +187,5 @@ const mapDispatchToProps = (dispatch) => {
     },
   };
 };
+
 export default connect(mapStateToProps, mapDispatchToProps)(Navbar);

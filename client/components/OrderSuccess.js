@@ -8,7 +8,7 @@ class OrderSuccess extends React.Component {
 
   render() {
     return (
-      <div className='div-container'>
+      <div className='div-container '>
         <h1 style={{ textAlign: "center", marginTop: "150px" }}>
           Thank you for your order!
         </h1>

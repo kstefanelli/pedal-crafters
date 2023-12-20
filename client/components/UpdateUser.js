@@ -43,7 +43,7 @@ export class UpdateUser extends Component {
   }
   render() {
     return (
-      <div className="add-product-form">
+      <div className="add-product-form ">
         <form onSubmit={this.handleSubmit} className="add-form-input">
           <div className="form update">
           <h1 style={{ textAlign: "center" }}>Update Information</h1>

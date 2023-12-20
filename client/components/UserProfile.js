@@ -16,7 +16,7 @@ export class UserProfile extends React.Component {
 
   render() {
     return (
-      <div className="profile-container">
+      <div className="profile-container ">
         <h2 className="profile-heading">Welcome {this.props.firstName}!</h2>
         <div className="profile-btn-container">
           <Link to="/profile/update">

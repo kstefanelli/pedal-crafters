@@ -46,7 +46,7 @@ class UpdateProduct extends React.Component {
     const { name, imageURL, price, description, category } = this.state;
     const { handleSubmit, handleChange } = this;
     return (
-      <div className="add-product-form">
+      <div className="add-product-form ">
         <form className="add-form-input" onSubmit={handleSubmit}>
           <div className="form update">
             <h1 style={{ textAlign: "center" }}>Update Product</h1>

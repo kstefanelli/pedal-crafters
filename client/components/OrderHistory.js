@@ -9,7 +9,7 @@ const OrderHistory = ({ orders, getOrders }) => {
   }, [getOrders]);
 
   return (
-    <div className="order-section">
+    <div className="order-section ">
       <h3 style={{ marginLeft: '2rem' }}>Order History</h3>
       {orders && orders.length !== 0 ? (
         <div className="all-order-container">

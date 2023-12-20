@@ -23,7 +23,7 @@ class SingleProduct extends Component {
       <div>
         {product && product.id ? (
           <div>
-            <section className='s-product-name'>
+            <section className='s-product-name '>
               <h1>{product.name}</h1>
             </section>
 
