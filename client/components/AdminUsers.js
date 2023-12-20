@@ -10,7 +10,7 @@ export class AdminUsers extends Component {
   render() {
     const users = this.props.users;
     return (
-      <div className="all-users-container">
+      <div className="all-users-container ">
         <h2>Customer Information</h2>
         <table className="all-users-table">
           <tbody className="all-users-table-body">

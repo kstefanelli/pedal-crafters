@@ -28,7 +28,7 @@ export class CreateUser extends React.Component {
   }
   render() {
     return (
-      <div className="create-form form div-container">
+      <div className="create-form form div-container ">
         <form onSubmit={this.handleSubmit}>
           <div className="form-container signup">
             <div className="signup-card">

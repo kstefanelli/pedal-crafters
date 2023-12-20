@@ -5,7 +5,7 @@ import { fetchUsers } from "../store/allUsers";
 
 export const Admin = () => {
   return (
-    <div className='admin-page-container'>
+    <div className='admin-page-container '>
       <h2>Admin Dashboard:</h2>
       <div className='div-container admin-btns'>
         <Link to={`/admin/users`}>
