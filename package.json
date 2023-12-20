@@ -1,7 +1,6 @@
 {
   "name": "pedal-crafters",
   "version": "2.0.0",
-  "description": "Some boilerplate code to get you started - get shakin'!",
   "main": "index.js",
   "scripts": {
     "build": "webpack",
@@ -16,7 +15,7 @@
     "test:dev": "npm run test -- --watch",
     "test:dev:models": "npm run test:dev -- --grep=model",
     "test:dev:routes": "npm run test:dev -- --grep=route",
-    "build:css": "postcss index.css -o output.css"
+    "build:css": "postcss client/index.css -o public/output.css"
   },
   "author": "PedalCrafters",
   "license": "MIT",
@@ -44,13 +43,14 @@
     "axios-mock-adapter": "^1.16.0",
     "babel-loader": "^8.2.2",
     "chai": "^4.2.0",
-    "css-loader": "^6.7.1",
+    "css-loader": "^6.8.1",
     "enzyme": "^3.9.0",
     "enzyme-adapter-react-16": "^1.12.1",
     "esm": "^3.2.25",
     "mocha": "^6.2.3",
     "nodemon": "^1.19.4",
     "postcss-cli": "^11.0.0",
+    "postcss-loader": "^7.3.3",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-redux": "^7.0.1",
@@ -61,7 +61,7 @@
     "redux-logger": "^3.0.6",
     "redux-mock-store": "^1.5.3",
     "redux-thunk": "^2.3.0",
-    "style-loader": "^3.3.1",
+    "style-loader": "^3.3.3",
     "supertest": "^4.0.2",
     "typescript": "^5.3.3",
     "webpack": "^5.15.0",

@@ -1,5 +1,4 @@
 import React from "react";
-
 const technologies = [
   { id: 1, logoSrc: "/react.png", altText: "react-logo", name: "React" },
   { id: 2, logoSrc: "/redux.png", altText: "redux-logo", name: "Redux" },
