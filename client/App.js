@@ -5,7 +5,7 @@ import Footer from './components/Footer';
 
 const App = () => {
   return (
-    <div className="page-container min-h-screen">
+    <div className="page-container">
       <Navbar />
       <Routes />
       <Footer />
