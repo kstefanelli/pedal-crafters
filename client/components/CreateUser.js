@@ -1,105 +1,87 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { createUser } from '../store/allUsers';
+import React, { useState } from "react";
+import { connect } from "react-redux";
+import { createUser } from "../store/allUsers";
 
-export class CreateUser extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      firstName: '',
-      lastName: '',
-      email: '',
-      password: '',
-    };
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
+const Input = ({ type, name, placeholder, value, onChange }) => (
+  <input
+    className='w-full p-2 mb-4 border rounded focus:outline-none focus:border-blue-500'
+    type={type}
+    name={name}
+    placeholder={placeholder}
+    required
+    value={value}
+    onChange={onChange}
+  />
+);
 
-  handleChange(event) {
-    this.setState({
-      ...this.state,
+const Button = ({ onClick, type, label, className }) => (
+  <button
+    className={`w-full ${className} focus:outline-none`}
+    type={type}
+    onClick={onClick}
+  >
+    {label}
+  </button>
+);
+
+const CreateUser = ({ createUser, history }) => {
+  const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
+  });
+
+  const handleChange = (event) => {
+    setFormData({
+      ...formData,
       [event.target.name]: event.target.value,
     });
-  }
+  };
 
-  handleSubmit(event) {
+  const handleSubmit = (event) => {
     event.preventDefault();
-    this.props.createUser(this.state);
-  }
-  render() {
-    return (
-      <div className="create-form form div-container ">
-        <form onSubmit={this.handleSubmit}>
-          <div className="form-container signup">
-            <div className="signup-card">
-              <p className="title">Register</p>
-              <div className="input-container">
-                <label className="labelName">
-                  <input
-                    className="input"
-                    type="text"
-                    name="firstName"
-                    placeholder="First name"
-                    onChange={this.handleChange}
-                    value={this.state.firstName}
-                  />
-                </label>
-              </div>
+    createUser(formData, history);
+  };
 
-              <div className="input-container">
-                <label className="labelName">
-                  <input
-                    className="input"
-                    type="text"
-                    name="lastName"
-                    placeholder="Last name"
-                    onChange={this.handleChange}
-                    value={this.state.lastName}
-                  />
-                </label>
-              </div>
+  return (
+    <div className='create-form form div-container'>
+      <form onSubmit={handleSubmit}>
+        <div className='form-container signup'>
+          <div className='signup-card'>
+            <p className='title'>Register</p>
 
-              <div className="input-container">
-                <label className="labelName">
-                  <input
-                    className="input"
-                    type="text"
-                    name="email"
-                    placeholder="Email"
-                    onChange={this.handleChange}
-                    value={this.state.email}
+            {["firstName", "lastName", "email", "password"].map((field) => (
+              <div key={field} className='input-container'>
+                <label className='labelName'>
+                  <Input
+                    type={field === "password" ? "password" : "text"}
+                    name={field}
+                    placeholder={field.charAt(0).toUpperCase() + field.slice(1)}
+                    onChange={handleChange}
+                    value={formData[field]}
                   />
                 </label>
               </div>
+            ))}
 
-              <div className="input-container">
-                <label className="labelName">
-                  <input
-                    className="input"
-                    type="password"
-                    name="password"
-                    placeholder="Password"
-                    onChange={this.handleChange}
-                    value={this.state.password}
-                  />
-                </label>
-              </div>
-              <div>
-                <button className="button submit-btn" type="submit">
-                  Create Account
-                </button>
-              </div>
+            <div>
+              <Button
+                type='submit'
+                label='Create Account'
+                className='bg-[#085162] text-white p-2 rounded hover:opacity-50'
+              />
             </div>
           </div>
-        </form>
-      </div>
-    );
-  }
-}
+        </div>
+      </form>
+    </div>
+  );
+};
 
 const mapDispatchToProps = (dispatch, { history }) => {
   return {
-    createUser: (props) => dispatch(createUser(props, history)),
+    createUser: (formData) => dispatch(createUser(formData, history)),
   };
 };
 
