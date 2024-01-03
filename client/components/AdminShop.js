@@ -1,147 +1,101 @@
-import React, { Component } from "react";
+import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { fetchProducts } from "../store/allProducts";
 import { addToCart } from "../store/cart";
 import Search from "./Search";
 
-export class AdminShop extends Component {
-  constructor() {
-    super();
-    this.state = {
-      filtered: "All",
-      term: "",
-    };
-    this.handleChange = this.handleChange.bind(this);
-  }
+const CategoryFilter = ({ categories, filtered, handleFilterClick }) => {
+  return (
+    <div className='grid-section-left'>
+      <Search />
+      <p className='grid-section-left-category-bold'>Categories</p>
+      <ul>
+        {categories.map((category) => (
+          <li
+            key={`cat-${category.toLowerCase()} shop-cat`}
+            className={`${
+              category === "All" ? "all-categories-list" : "cat-list"
+            }${filtered === category ? " active" : ""}`}
+            onClick={() => handleFilterClick(category)}
+          >
+            {category}
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+};
 
-  componentDidMount() {
-    this.props.getProducts();
-  }
+const AdminShop = ({ products, getProducts, addToCart }) => {
+  const [filtered, setFiltered] = useState("All");
+  const [term, setTerm] = useState("");
 
-  handleChange(event) {
-    this.setState({ ...this.state, term: event.target.value });
-  }
+  useEffect(() => {
+    getProducts();
+  }, [getProducts]);
 
-  handleFilterClick(categoryName) {
-    this.setState({ filtered: categoryName });
-  }
+  const handleChange = (event) => {
+    setTerm(event.target.value);
+  };
 
-  render() {
-    const { products } = this.props;
+  const handleFilterClick = (categoryName) => {
+    setFiltered(categoryName);
+  };
 
-    const productFilter = products.filter((product) => {
-      if (this.state.filtered === "All") return product;
-      if (this.state.filtered === "Track") return product.category === "track";
-      if (this.state.filtered === "Tracklocross")
-        return product.category === "tracklocross";
-      if (this.state.filtered === "Gravel")
-        return product.category === "gravel";
-      if (this.state.filtered === "Road") return product.category === "road";
-    });
+  const productFilter = products.filter((product) => {
+    if (filtered === "All") return product;
+    return product.category === filtered;
+  });
 
-    return (
-      <section className='grid-section '>
-        Bicycles
-        <div className='grid-container'>
-          <div className='grid-section-left'>
-          <Search onSearchChange={(term) => this.setState({ term })} />
-            <p className='grid-section-left-category-bold'>Categories</p>
-            <ul>
-              <li
-                className='all-categories-list'
-                onClick={() => {
-                  this.handleFilterClick("All");
-                }}
-                key='cat-all shop-cat'
-              >
-                All
-              </li>
-              <li
-                className='cat-list'
-                onClick={() => {
-                  this.handleFilterClick("Track");
-                }}
-                key='cat-track shop-cat'
-              >
-                Track
-              </li>
-              <li
-                className='cat-list'
-                onClick={() => {
-                  this.handleFilterClick("Tracklocross");
-                }}
-                key='cat-tracklocross shop-cat'
-              >
-                Tracklocross
-              </li>
-              <li
-                className='cat-list'
-                onClick={() => {
-                  this.handleFilterClick("Gravel");
-                }}
-                key='cat-gravel shop-cat'
-              >
-                Gravel
-              </li>
-              <li
-                className='cat-list'
-                onClick={() => {
-                  this.handleFilterClick("Road");
-                }}
-                key='cat-road shop-cat'
-              >
-                {" "}
-                Road
-              </li>
-            </ul>
-          </div>
+  const categories = ["All", "Track", "Tracklocross", "Gravel", "Road"];
 
-          <div className='grid-section-right'>
-            {productFilter.map((product) =>
-              product.name
-                .toLowerCase()
-                .includes(this.state.term.toLowerCase()) ? (
-                <div className='grid-item' key={product.id}>
-                  <Link to={`/products/${product.id}`}>
-                    <img
-                      className='shop-image'
-                      src={product.imageURL}
-                      alt={`Image of ${product.name}`}
-                    />
+  return (
+    <section className='grid-section '>
+      Bicycles
+      <div className='grid-container'>
+        <CategoryFilter
+          categories={categories}
+          filtered={filtered}
+          handleFilterClick={handleFilterClick}
+        />
+
+        <div className='grid-section-right'>
+          {productFilter.map((product) => (
+            <div className='grid-item' key={product.id}>
+              <Link to={`/products/${product.id}`}>
+                <img
+                  className='shop-image'
+                  src={product.imageURL}
+                  alt={`Image of ${product.name}`}
+                />
+              </Link>
+              <div className='track-description'>
+                <h3 className='grid-item-text'>{product.name}</h3>
+                <p className='grid-item-text'>
+                  ${parseFloat(product.price / 100).toFixed(2)}
+                </p>
+                <div className='shop-btn-container'>
+                  <Link to={`/products/${product.id}/update`}>
+                    <button className='view-more-btn shop-btn'>
+                      Edit Product
+                    </button>
                   </Link>
-                  <div className='track-description'>
-                    <h3 className='grid-item-text'>{product.name}</h3>
-                    <p className='grid-item-text'>
-                      ${parseFloat(product.price / 100).toFixed(2)}
-                    </p>
-                    <div className='shop-btn-container'>
-                      <Link to={`/products/${product.id}/update`}>
-                        <button className='view-more-btn shop-btn'>
-                          Edit Product
-                        </button>
-                      </Link>
-                      <button
-                        className='add-to-cart shop-btn'
-                        onClick={() => {
-                          this.props.addToCart(product);
-                        }}
-                      >
-                        Add To Cart
-                      </button>
-                    </div>
-                  </div>
+                  <button
+                    className='add-to-cart shop-btn'
+                    onClick={() => addToCart(product)}
+                  >
+                    Add To Cart
+                  </button>
                 </div>
-              ) : (
-                ""
-              )
-            )}
-          </div>
+              </div>
+            </div>
+          ))}
         </div>
-      </section>
-    );
-  }
-}
+      </div>
+    </section>
+  );
+};
 
 const mapStateToProps = (state) => ({
   products: state.products,
