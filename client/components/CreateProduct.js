@@ -1,125 +1,92 @@
-import React from "react";
+import React, { useState } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { createProduct } from "../store/allProducts";
 
-class CreateProduct extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      name: "",
-      price: 0,
-      description: "",
-      category: "",
-    };
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
+const CreateProduct = ({ createProduct, history }) => {
+  const [productInfo, setProductInfo] = useState({
+    name: "",
+    price: 0,
+    description: "",
+    category: "",
+  });
 
-  handleChange(event) {
-    this.setState({ ...this.state, [event.target.name]: event.target.value });
-    console.log(this.state);
-  }
+  const handleChange = (event) => {
+    setProductInfo({
+      ...productInfo,
+      [event.target.name]: event.target.value,
+    });
+  };
 
-  handleSubmit(event) {
+  const handleSubmit = (event) => {
     event.preventDefault();
-    this.props.createProduct(this.state);
-  }
+    createProduct(productInfo, history);
+  };
 
-  render() {
-    const { name, price, description, category } = this.state;
-    const { handleSubmit, handleChange } = this;
-    return (
-      <div className='add-product-form '>
-        <form className='add-form-input' onSubmit={handleSubmit}>
-          <div className='form update'>
-            <h1 style={{ textAlign: "center" }}>Add Product</h1>
+  const { name, price, description, category } = productInfo;
 
-            <div className='product-info-div'>
+  return (
+    <div className='add-product-form '>
+      <form className='add-form-input' onSubmit={handleSubmit}>
+        <div className='form update'>
+          <h1 style={{ textAlign: "center" }}>Add Product</h1>
+
+          {[
+            { label: "Product Name", name: "name", type: "text" },
+            { label: "Price", name: "price", type: "number" },
+            { label: "Description", name: "description", type: "textarea" },
+            { label: "Category", name: "category", type: "select" },
+          ].map((input) => (
+            <div className='product-info-div' key={input.name}>
               <div className='product-info-name'>
-                <span htmlFor='productName'>Product Name</span>
+                <span htmlFor={`product${input.name}`}>{input.label}</span>
               </div>
               <div className='product-info-input'>
-                <input
-                  name='name'
-                  className='product-info-input'
-                  onChange={handleChange}
-                  value={name}
-                  required
-                  onInvalid={(e) =>
-                    e.target.setCustomValidity(
-                      "Product name is a required field",
-                      alert("Go back and add a product name")
-                    )
-                  }
-                  onInput={(e) => e.target.setCustomValidity("")}
-                />
-              </div>
-            </div>
-
-            <div className='product-info-div'>
-              <div className='product-info-name'>
-                <span htmlFor='productPrice'>Price</span>
-              </div>
-              <div className='product-info-input'>
-                <input
-                  name='price'
-                  onChange={handleChange}
-                  value={price}
-                  required
-                  onInvalid={(e) =>
-                    e.target.setCustomValidity(
-                      "Product price is a required field",
-                      alert(
-                        "How do you plan to sell a product without a price?"
+                {input.type === "textarea" ? (
+                  <textarea
+                    name={input.name}
+                    onChange={handleChange}
+                    value={productInfo[input.name]}
+                    required
+                    onInvalid={(e) =>
+                      e.target.setCustomValidity(
+                        `Product ${input.name} is a required field`,
+                        alert(`Go back and add a product ${input.name}`)
                       )
-                    )
-                  }
-                  onInput={(e) => e.target.setCustomValidity("")}
-                />
+                    }
+                    onInput={(e) => e.target.setCustomValidity("")}
+                  />
+                ) : input.type === "select" ? (
+                  <select
+                    onChange={handleChange}
+                    name={input.name}
+                    className='category-list'
+                  >
+                    <option value={category}></option>
+                    <option value='track'>track</option>
+                    <option value='tracklocross'>tracklocross</option>
+                    <option value='gravel'>gravel</option>
+                    <option value='road'>road</option>
+                  </select>
+                ) : (
+                  <input
+                    name={input.name}
+                    type={input.type}
+                    onChange={handleChange}
+                    value={productInfo[input.name]}
+                    required
+                    onInvalid={(e) =>
+                      e.target.setCustomValidity(
+                        `Product ${input.name} is a required field`,
+                        alert(`Go back and add a product ${input.name}`)
+                      )
+                    }
+                    onInput={(e) => e.target.setCustomValidity("")}
+                  />
+                )}
               </div>
             </div>
-
-            <div className='product-info-div'>
-              <div className='product-info-name'>
-                <span htmlFor='productDescription'>Description</span>
-              </div>
-              <div className='product-info-input product-description-input'>
-                <textarea
-                  name='description'
-                  onChange={handleChange}
-                  value={description}
-                  required
-                  onInvalid={(e) =>
-                    e.target.setCustomValidity(
-                      "Product description is a required field",
-                      alert("Go back and add a product description")
-                    )
-                  }
-                  onInput={(e) => e.target.setCustomValidity("")}
-                />
-              </div>
-            </div>
-
-            <div className='product-info-div'>
-              <div className='product-info-name'>
-                <span htmlFor='productCategory'>Category</span>
-              </div>
-              <div className='cat-cont'>
-                <select
-                  onChange={handleChange}
-                  name='category'
-                  className='category-list'
-                >
-                  <option value={category}></option>
-                  <option value='track'>track</option>
-                  <option value='tracklocross'>tracklocross</option>
-                  <option value='gravel'>gravel</option>
-                  <option value='road'>road</option>
-                </select>
-              </div>
-            </div>
-          </div>
+          ))}
 
           <div className='update-btns'>
             <button type='submit'>Create</button>
@@ -130,11 +97,11 @@ class CreateProduct extends React.Component {
               </button>
             </Link>
           </div>
-        </form>
-      </div>
-    );
-  }
-}
+        </div>
+      </form>
+    </div>
+  );
+};
 
 const mapDispatchToProps = (dispatch, { history }) => ({
   createProduct: (product) => dispatch(createProduct(product, history)),
