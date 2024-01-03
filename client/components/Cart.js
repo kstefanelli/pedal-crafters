@@ -1,169 +1,146 @@
-import React, { Component } from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import {
-  deleteFromCart,
-  fetchCart,
-  _updateCart,
-  updateQuantity,
-} from "../store/cart";
+import { deleteFromCart, fetchCart, updateQuantity } from "../store/cart";
 import { Link } from "react-router-dom";
 
-class Cart extends Component {
-  constructor() {
-    super();
-    this.handleDelete = this.handleDelete.bind(this);
-  }
+const formatCurrency = (value) => {
+  return value.toLocaleString("en-US", {
+    style: "currency",
+    currency: "USD",
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  });
+};
 
-  componentDidMount() {
-    this.props.fetchCart();
-  }
+const Button = ({ onClick, children }) => (
+  <button
+    onClick={onClick}
+    className={`bg-[#085162] text-white hover:opacity-50 px-2 py-1 rounded-md`}
+  >
+    {children}
+  </button>
+);
 
-  handleDelete(productId) {
-    this.props.deleteFromCart(productId);
-  }
+const ColoredButton = ({ onClick, children }) => (
+  <Button onClick={onClick} className='bg-[#085162]'>
+    {children}
+  </Button>
+);
 
-  calculateSubtotal() {
-    if (this.props.cart && this.props.cart.products) {
-      return this.props.cart.products.reduce((prev, curr) => {
+const CartItem = ({ product, updateCart, handleDelete, formatCurrency }) => (
+  <>
+    <div className='flex items-center justify-between text-xs md:hidden'>
+      <div className='font-bold'>{product.name}</div>
+      <div>{formatCurrency(product.price / 100)}</div>
+    </div>
+    <div className='grid grid-cols-2 xl:grid-cols-4 gap-2 grid-flow-col items-center text-xs md:text-md'>
+      <div className='hidden md:block md:col-span-2 md:font-bold'>
+        {product.name}
+      </div>
+      <div className='col-span-1 flex items-center'>
+        <ColoredButton onClick={() => updateCart(product, -1)}>-</ColoredButton>
+        <div className='mx-2'>{product.cartItem.quantity}</div>
+        <ColoredButton onClick={() => updateCart(product, 1)}>+</ColoredButton>
+      </div>
+      <div className='hidden md:block col-span-1 md:col-span-2'>
+        {formatCurrency(product.price / 100)}
+      </div>
+      <div className='flex justify-end'>
+        <Button onClick={() => handleDelete(product.id)}>Delete</Button>
+      </div>
+    </div>
+  </>
+);
+
+const ButtonLink = ({ to, children }) => (
+  <Link to={to}>
+    <Button>{children}</Button>
+  </Link>
+);
+
+const Row = ({ title, value }) => (
+  <div className='flex justify-between mb-2 text-xs'>
+    <div>{title}</div>
+    <div>{value}</div>
+  </div>
+);
+
+const TotalSection = ({ subtotal, formatCurrency }) => (
+  <>
+    <Row title='Subtotal' value={formatCurrency(subtotal)} />
+    <Row title='Shipping' value={formatCurrency(2.99)} />
+    <Row title='Total' value={formatCurrency(subtotal + 2.99)} />
+  </>
+);
+
+const LeftSideCart = ({ cart, handleDelete, updateCart, formatCurrency }) => (
+  <div className='md:col-span-2 border-4 border-black rounded-md p-2 md:p-4'>
+    <div className='space-y-2'>
+      {cart?.products?.length > 0 ? (
+        cart.products.map((product) => (
+          <CartItem
+            key={product.id}
+            product={product}
+            updateCart={updateCart}
+            handleDelete={handleDelete}
+            formatCurrency={formatCurrency}
+          />
+        ))
+      ) : (
+        <p className='font-bold text-center'>Cart is Empty</p>
+      )}
+    </div>
+  </div>
+);
+
+const RightSideCart = ({ subtotal, formatCurrency }) => (
+  <div className='col-span-1 border-4 border-black rounded-md p-2 md:p-4'>
+    <div className='text-xl font-bold mb-4'>Total</div>
+    <TotalSection subtotal={subtotal} formatCurrency={formatCurrency} />
+    <div className='flex mt-4 justify-center md:justify-end'>
+      <ButtonLink to='/checkout'>Proceed To Checkout</ButtonLink>
+    </div>
+  </div>
+);
+
+const Cart = ({ cart, fetchCart, deleteFromCart, updateCart }) => {
+  useEffect(() => {
+    fetchCart();
+  }, [fetchCart]);
+
+  const handleDelete = (productId) => {
+    deleteFromCart(productId);
+  };
+
+  const calculateSubtotal = () => {
+    return (
+      cart?.products?.reduce((prev, curr) => {
         let calculatedPrice = (curr.price * curr.cartItem.quantity) / 100;
         return prev + calculatedPrice;
-      }, 0);
-    }
-    return 0;
-  }
-
-  formatCurrency(value) {
-    return value.toLocaleString('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 2, maximumFractionDigits: 2 });
-  }
-
-  render() {
-    const cartItemProps = this.props.cart.products || [];
-    return (
-      <div>
-        <h2 style={{ textAlign: "center" }}>Cart</h2>
-        <div className="cart-container">
-          <div className="cart-section-left">
-            <div className="shopping-cart-left-container">
-              <div className="checkout-card-row">
-                <div
-                  className="subtotal-inline-block product-sec"
-                  style={{ fontWeight: "bold" }}
-                >
-                  Product
-                </div>
-                <div
-                  className="subtotal-inline-block quantity-sec-heading"
-                  style={{ fontWeight: "bold" }}
-                >
-                  Quantity
-                </div>
-                <div
-                  className="subtotal-inline-block price-sec-heading"
-                  style={{ fontWeight: "bold" }}
-                >
-                  Price
-                </div>
-                <div className="subtotal-inline-block"></div>
-              </div>
-              {this.props.cart !== null && this.props.cart.products ? (
-                this.props.cart.products.map((product) => (
-                  <div key={product.id} className="checkout-card-row">
-                    <div className="subtotal-inline-block product-sec">
-                      {product.name}
-                    </div>
-                    <div className="quantity-section quantity-sec">
-                      <button
-                        className="increment-btn"
-                        onClick={() => this.props.updateCart(product, -1)}
-                      >
-                        -
-                      </button>
-                      <div className="subtotal-inline-block">
-                        {product.cartItem.quantity}
-                      </div>
-                      <button
-                        className="increment-btn"
-                        onClick={() => this.props.updateCart(product, 1)}
-                      >
-                        +
-                      </button>
-                    </div>
-                    <div
-                      className="subtotal-inline-block"
-                      style={{ marginRight: "1rem" }}
-                    >
-                      {this.formatCurrency(product.price / 100)}
-                    </div>
-                    <button
-                      type="button"
-                      className="delete-btn"
-                      onClick={() => this.handleDelete(product.id)}
-                    >
-                      Delete
-                    </button>
-                  </div>
-                ))
-              ) : (
-                <p>Empty cart</p>
-              )}
-            </div>
-          </div>
-          <div className="cart-section-right">
-            <div className="cart-card-right">
-              <span
-                style={{
-                  fontSize: "1.5rem",
-                  fontWeight: "bold",
-                  margin: "1rem 2rem",
-                }}
-              >
-                Total
-              </span>
-              <div className="checkout-card-row">
-                <div
-                  className="subtotal-inline-block"
-                  style={{ fontWeight: "bold" }}
-                >
-                  Subtotal
-                </div>
-                <div className="subtotal-inline-block">
-                  {this.formatCurrency(this.calculateSubtotal())}
-                </div>
-              </div>
-              <div className="checkout-card-row">
-                <div
-                  className="subtotal-inline-block"
-                  style={{ fontWeight: "bold" }}
-                >
-                  Shipping
-                </div>
-                <div className="subtotal-inline-block">
-                  {this.formatCurrency(2.99)}
-                </div>
-              </div>
-              <div className="checkout-card-row">
-                <div
-                  className="subtotal-inline-block"
-                  style={{ fontWeight: "bold" }}
-                >
-                  Total
-                </div>
-                <div className="subtotal-inline-block">
-                  {this.formatCurrency(this.calculateSubtotal() + 2.99)}
-                </div>
-              </div>
-              <div className="checkout-card-row checkout-button-cont">
-                <Link to="/checkout">
-                  <button className="checkout-btn">Proceed To Checkout</button>
-                </Link>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      }, 0) || 0
     );
-  }
-}
+  };
+
+  return (
+    <>
+      <div className='mx-12 text-center'>
+        <h2 className='font-semibold text-2xl pt-12 xl:pt-0 xl:pb-12'>Cart</h2>
+      </div>
+      <div className='xl:grid xl:grid-cols-2 xl:grid-flow-col space-y-8 xl:space-y-0 xl:gap-20 px-12 py-12 xl:py-0'>
+        <LeftSideCart
+          cart={cart}
+          handleDelete={handleDelete}
+          updateCart={updateCart}
+          formatCurrency={formatCurrency}
+        />
+        <RightSideCart
+          subtotal={calculateSubtotal()}
+          formatCurrency={formatCurrency}
+        />
+      </div>
+    </>
+  );
+};
 
 const mapStateToProps = (state) => ({
   cart: state.cart,
