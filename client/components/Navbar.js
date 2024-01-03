@@ -26,8 +26,8 @@ const CustomLink = ({ page, selectedPage, setSelectedPage, onClick }) => {
         selectedPage === lowerCasePage ||
         (selectedPage === "Home" && lowerCasePage === "")
           ? "text-orange-400 underline underline-offset-4 decoration-2"
-          : ""
-      } hover:text-orange transition duration-500 hover:underline hover:underline-offset-4 hover:decoration-2`}
+          : "text-white"
+      } hover:text-orange-400 transition duration-500 hover:underline hover:underline-offset-4 hover:decoration-2`}
       aria-label={`Link to the ${page === "" ? "Home" : page} page`}
       onClick={handleClick}
     >
@@ -40,7 +40,7 @@ const Navbar = ({ isTopOfPage, isLoggedIn, isAdmin }) => {
   const [selectedPage, setSelectedPage] = useState("Home");
   const [isMenuToggled, setIsMenuToggled] = useState(false);
   const isDesktop = useMediaQuery("(min-width: 768px)");
-  const navbarBackground = isTopOfPage ? "" : "bg-[#75d9ef]";
+  const navbarBackground = isTopOfPage ? "" : "bg-[#085162]";
 
   const location = useLocation();
 
@@ -67,6 +67,7 @@ const Navbar = ({ isTopOfPage, isLoggedIn, isAdmin }) => {
       // about: "About - Pedal Crafters",
       profile: "Profile - Pedal Crafters",
       signin: "Sign in - Pedal Crafters",
+      register: "Register - Pedal Crafters",
       admin: "Admin - Pedal Crafters",
       cart: "Cart - Pedal Crafters",
     };
@@ -96,7 +97,7 @@ const Navbar = ({ isTopOfPage, isLoggedIn, isAdmin }) => {
           <Link
             to='/'
             aria-label='Pedal Crafters Logo'
-            className='hover:text-orange-500 transition duration-500'
+            className='hover:text-orange-500 transition duration-500 text-white'
             onClick={() => {
               scrollToTop();
               setIsMenuToggled(false);
@@ -138,7 +139,7 @@ const Navbar = ({ isTopOfPage, isLoggedIn, isAdmin }) => {
           <div
             className={`transition-transform transform duration-500 ${
               isMenuToggled ? "translate-x-0" : "translate-x-full"
-            } fixed top-0 right-0 min-h-[100vh] bg-[#75d9ef] w-screen`}
+            } fixed top-0 right-0 min-h-[100vh] bg-[#085162] w-screen`}
           >
             <div className='flex justify-end py-6 mx-auto w-5/6'>
               <button

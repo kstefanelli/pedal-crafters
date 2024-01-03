@@ -6,7 +6,7 @@ footer {
   }
 
   .footer-container {
-    background-color: #75d9ef;
+    background-color: #085162;
     padding: 1rem;
     display: flex;
     align-items: center;
@@ -23,12 +23,12 @@ footer {
   }
 
   .footer-link {
-    color: #017f9b;
+    color: white;
     text-decoration: none;
     transition-duration: 0.2s;
     padding-right: 10px;
   }
 
   .footer-link:hover {
-    color: #02191f;
+    color: orange;
   }

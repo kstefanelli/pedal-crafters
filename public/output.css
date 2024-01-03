@@ -616,8 +616,14 @@ video {
 .overflow-hidden {
   overflow: hidden;
 }
+.rounded {
+  border-radius: 0.25rem;
+}
 .rounded-md {
   border-radius: 0.375rem;
+}
+.border {
+  border-width: 1px;
 }
 .border-4 {
   border-width: 4px;
@@ -629,10 +635,6 @@ video {
 .bg-\[\#085162\] {
   --tw-bg-opacity: 1;
   background-color: rgb(8 81 98 / var(--tw-bg-opacity));
-}
-.bg-\[\#75d9ef\] {
-  --tw-bg-opacity: 1;
-  background-color: rgb(117 217 239 / var(--tw-bg-opacity));
 }
 .p-2 {
   padding: 0.5rem;
@@ -695,6 +697,10 @@ video {
 .text-orange-400 {
   --tw-text-opacity: 1;
   color: rgb(251 146 60 / var(--tw-text-opacity));
+}
+.text-red-500 {
+  --tw-text-opacity: 1;
+  color: rgb(239 68 68 / var(--tw-text-opacity));
 }
 .text-white {
   --tw-text-opacity: 1;
@@ -759,8 +765,12 @@ label {
 }
 
 form div {
-  margin: 1em;
   display: inline-block;
+}
+
+.hover\:text-orange-400:hover {
+  --tw-text-opacity: 1;
+  color: rgb(251 146 60 / var(--tw-text-opacity));
 }
 
 .hover\:text-orange-500:hover {
@@ -782,6 +792,16 @@ form div {
 
 .hover\:opacity-50:hover {
   opacity: 0.5;
+}
+
+.focus\:border-blue-500:focus {
+  --tw-border-opacity: 1;
+  border-color: rgb(59 130 246 / var(--tw-border-opacity));
+}
+
+.focus\:outline-none:focus {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
 }
 
 @media (min-width: 768px) {
