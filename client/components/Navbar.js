@@ -43,7 +43,7 @@ const CustomLink = ({
 const Navbar = ({ isTopOfPage, isLoggedIn, isAdmin }) => {
   const [selectedPage, setSelectedPage] = useState("Home");
   const [isMenuToggled, setIsMenuToggled] = useState(false);
-  const isDesktop = useMediaQuery("(min-width: 768px)");
+  const isDesktop = useMediaQuery("(min-width: 1024px)");
   const navbarBackground = isTopOfPage ? "" : "bg-[#085162]";
 
   const location = useLocation();
@@ -80,11 +80,11 @@ const Navbar = ({ isTopOfPage, isLoggedIn, isAdmin }) => {
       register: "Register - Pedal Crafters",
     };
 
-    const isProductUpdateRoute =
-      pathname.startsWith("/products/") && pathname.endsWith("/update");
-    if (isProductUpdateRoute) {
+    const isProductRoute = pathname.match(/^\/products\/\d+(\/update)?$/);
+    if (isProductRoute) {
       document.title =
-        titleMap["products/update"] || "404 Not Found - Pedal Crafters";
+        titleMap[isProductRoute[1] ? "products/update" : "products"] ||
+        "404 Not Found - Pedal Crafters";
     } else {
       document.title =
         titleMap[currentPage] || "404 Not Found - Pedal Crafters";
