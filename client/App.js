@@ -1,13 +1,15 @@
-import React from 'react';
-import Navbar from './components/Navbar';
-import Routes from './Routes';
-import Footer from './components/Footer';
+import React from "react";
+import Navbar from "./components/Navbar";
+import Routes from "./Routes";
+import Footer from "./components/Footer";
 
 const App = () => {
   return (
-    <div className="page-container">
+    <div className='flex flex-col min-h-screen'>
       <Navbar />
-      <Routes />
+      <div className='flex-grow'>
+        <Routes />
+      </div>
       <Footer />
     </div>
   );

@@ -21,7 +21,7 @@ const Button = ({ type, label, className }) => (
 
 const AuthForm = ({ name, displayName, handleSubmit, error }) => {
   return (
-    <div className='form div-container '>
+    <div className='form div-container lg:p-14'>
       <form onSubmit={handleSubmit} name={name}>
         <div className='login'>
           <div className='login-card'>
