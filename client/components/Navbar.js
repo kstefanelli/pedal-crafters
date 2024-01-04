@@ -8,10 +8,14 @@ const scrollToTop = () => {
   window.scrollTo(0, 0);
 };
 
-const CustomLink = ({ page, selectedPage, setSelectedPage, onClick }) => {
+const CustomLink = ({
+  page,
+  selectedPage,
+  setSelectedPage,
+  onClick,
+  label,
+}) => {
   const lowerCasePage = page.toLowerCase();
-  const linkText =
-    page === "" ? "Home" : page.charAt(0).toUpperCase() + page.slice(1);
 
   const handleClick = () => {
     setSelectedPage(lowerCasePage);
@@ -28,10 +32,10 @@ const CustomLink = ({ page, selectedPage, setSelectedPage, onClick }) => {
           ? "text-orange-400 underline underline-offset-4 decoration-2"
           : "text-white"
       } hover:text-orange-400 transition duration-500 hover:underline hover:underline-offset-4 hover:decoration-2`}
-      aria-label={`Link to the ${page === "" ? "Home" : page} page`}
+      aria-label={`Link to the ${page === "" ? "Home" : label} page`}
       onClick={handleClick}
     >
-      {linkText}
+      {label}
     </Link>
   );
 };
@@ -46,10 +50,9 @@ const Navbar = ({ isTopOfPage, isLoggedIn, isAdmin }) => {
 
   const commonItems = [
     { path: "/products", label: "Products", show: true },
-    // { path: "/about", label: "About", show: true },
     { path: "/profile", label: "Profile", show: isLoggedIn },
     { path: "/signin", label: "Sign in", show: !isLoggedIn },
-    { path: "/cart", label: "🛒", show: true },
+    { path: "/cart", label: "Cart", show: true },
   ];
   const adminItems = [{ path: "/admin", label: "Admin", show: isAdmin }];
   const navItems = [
@@ -63,15 +66,30 @@ const Navbar = ({ isTopOfPage, isLoggedIn, isAdmin }) => {
     const titleMap = {
       Home: "Pedal Crafters",
       products: "Products - Pedal Crafters",
-      "edit/products": "Products - Pedal Crafters",
-      // about: "About - Pedal Crafters",
+      "products/add": "Add Products - Pedal Crafters",
+      "products/update": "Update Product - Pedal Crafters",
+      cart: "Cart - Pedal Crafters",
+      checkout: "Checkout - Pedal Crafters",
+      orderSuccess: "Order Success - Pedal Crafters",
+      admin: "Admin - Pedal Crafters",
+      "admin/products": "Edit Products - Pedal Crafters",
+      "admin/users": "Users - Pedal Crafters",
       profile: "Profile - Pedal Crafters",
+      "profile/update": "Update Profile - Pedal Crafters",
       signin: "Sign in - Pedal Crafters",
       register: "Register - Pedal Crafters",
-      admin: "Admin - Pedal Crafters",
-      cart: "Cart - Pedal Crafters",
     };
-    document.title = titleMap[currentPage] || "404 Not Found - Pedal Crafters";
+
+    const isProductUpdateRoute =
+      pathname.startsWith("/products/") && pathname.endsWith("/update");
+    if (isProductUpdateRoute) {
+      document.title =
+        titleMap["products/update"] || "404 Not Found - Pedal Crafters";
+    } else {
+      document.title =
+        titleMap[currentPage] || "404 Not Found - Pedal Crafters";
+    }
+
     setSelectedPage(currentPage);
   }, [location.pathname, selectedPage]);
 
@@ -114,6 +132,7 @@ const Navbar = ({ isTopOfPage, isLoggedIn, isAdmin }) => {
                 page={item.path === "/" ? "" : item.path.substring(1)}
                 selectedPage={selectedPage}
                 setSelectedPage={setSelectedPage}
+                label={item.label}
                 onClick={() => setIsMenuToggled(false)}
               />
             ))}
@@ -163,6 +182,7 @@ const Navbar = ({ isTopOfPage, isLoggedIn, isAdmin }) => {
                   page={item.path === "/" ? "" : item.path.substring(1)}
                   selectedPage={selectedPage}
                   setSelectedPage={setSelectedPage}
+                  label={item.label}
                   onClick={() => setIsMenuToggled(false)}
                 />
               ))}
