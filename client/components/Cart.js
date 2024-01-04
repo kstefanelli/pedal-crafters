@@ -122,11 +122,11 @@ const Cart = ({ cart, fetchCart, deleteFromCart, updateCart }) => {
   };
 
   return (
-    <>
+    <div className='mx auto p-5 lg:p-14'>
       <div className='mx-12 text-center'>
         <h2 className='font-semibold text-2xl pt-12 xl:pt-0 xl:pb-12'>Cart</h2>
       </div>
-      <div className='xl:grid xl:grid-cols-2 xl:grid-flow-col space-y-8 xl:space-y-0 xl:gap-20 px-12 py-12 xl:py-0'>
+      <div className='xl:grid xl:grid-cols-2 xl:grid-flow-col space-y-8 xl:space-y-0 xl:gap-20'>
         <LeftSideCart
           cart={cart}
           handleDelete={handleDelete}
@@ -138,7 +138,7 @@ const Cart = ({ cart, fetchCart, deleteFromCart, updateCart }) => {
           formatCurrency={formatCurrency}
         />
       </div>
-    </>
+    </div>
   );
 };
 

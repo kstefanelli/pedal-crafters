@@ -27,7 +27,7 @@ const AdminShop = ({ products, getProducts, addToCart }) => {
   );
 
   return (
-    <section className='mx-auto p-10 lg:p-20'>
+    <section className='mx-auto p-5 lg:p-10'>
       Bicycles
       <div className='grid-container'>
         <div className='grid-section-left'>
