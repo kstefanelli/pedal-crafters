@@ -1,69 +1,42 @@
-import React, { useEffect } from 'react';
-import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { fetchOrders } from '../store/allOrders';
+import React from "react";
+import useOrderFetching from "../hooks/useOrderFetching"
+import OrderItem from "./OrderItem";
 
-const OrderHistory = ({ orders, getOrders }) => {
-  useEffect(() => {
-    getOrders();
-  }, [getOrders]);
+const OrderHistory = () => {
+  const orders = useOrderFetching();
 
   return (
-    <div className="order-section ">
-      <h3 style={{ marginLeft: '2rem' }}>Order History</h3>
+    <div className='order-section'>
+      <h3 style={{ marginLeft: "2rem" }}>Order History</h3>
       {orders && orders.length !== 0 ? (
-        <div className="all-order-container">
+        <div className='all-order-container'>
           {orders.map((order) => (
-            <div order={order} key={order.id} className="order-container">
-              <h4 style={{ marginLeft: '2rem' }}>Order number: {order.id}</h4>
-              <div className="order-item-container">
+            <div order={order} key={order.id} className='order-container'>
+              <h4 style={{ marginLeft: "2rem" }}>Order number: {order.id}</h4>
+              <div className='order-item-container'>
                 <div></div>
-                <div style={{ fontWeight: 'bold' }} className="order-name">
+                <div style={{ fontWeight: "bold" }} className='order-name'>
                   Name
                 </div>
-                <div style={{ fontWeight: 'bold' }} className="order-price">
+                <div style={{ fontWeight: "bold" }} className='order-price'>
                   Price
                 </div>
-                <div style={{ fontWeight: 'bold' }} className="order-quantity">
+                <div style={{ fontWeight: "bold" }} className='order-quantity'>
                   Quantity
                 </div>
-                <div style={{ fontWeight: 'bold' }}>Total</div>
+                <div style={{ fontWeight: "bold" }}>Total</div>
               </div>
               {order.products.map((item) => (
-                <div key={item.id} className="order-item-container">
-                  <img className="order-img" src={item.imageURL} alt={`Image of ${item.name}`} />
-                  <div className="s-order-name">
-                    <Link to={`/products/${item.id}`}>
-                      <span>{item.name}</span>
-                    </Link>
-                  </div>
-                  <span style={{ fontSize: '.8rem' }} className="s-order-price">
-                    {(item.price / 100).toLocaleString('en-US', { style: 'currency', currency: 'USD' })}
-                  </span>
-                  <span style={{ fontSize: '.8rem' }} className="s-order-quantity">
-                    {item.cartItem.quantity}
-                  </span>
-                  <span style={{ fontSize: '.8rem' }}>
-                  {((item.cartItem.quantity * item.price) / 100).toLocaleString('en-US', { style: 'currency', currency: 'USD' })}
-                  </span>
-                </div>
+                <OrderItem key={item.id} item={item} />
               ))}
             </div>
           ))}
         </div>
       ) : (
-        <div className="div-container">No recent orders found</div>
+        <div className='div-container'>No recent orders found</div>
       )}
     </div>
   );
 };
 
-const mapStateToProps = (state) => ({
-  orders: state.orders,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  getOrders: () => dispatch(fetchOrders()),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(OrderHistory);
+export default OrderHistory;
