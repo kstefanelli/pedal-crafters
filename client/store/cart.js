@@ -1,11 +1,11 @@
-import axios from 'axios';
-import { TOKEN } from './auth';
+import axios from "axios";
+import { TOKEN } from "./auth";
 
-const GUEST_CART = 'cart';
+const GUEST_CART = "cart";
 
 // ACTION TYPES
-const SET_CART = 'SET_CART';
-const UPDATE_CART = 'UPDATE_CART';
+const SET_CART = "SET_CART";
+const UPDATE_CART = "UPDATE_CART";
 
 // ACTION CREATORS
 export const _setCart = (cart) => ({
@@ -18,6 +18,14 @@ export const _updateCart = (cart) => ({
   cart,
 });
 
+
+const calculateTotalQuantity = (products) => {
+  return products.reduce(
+    (total, product) => total + product.cartItem.quantity,
+    0
+  );
+};
+
 // THUNKS
 export const fetchCart = () => {
   return async (dispatch) => {
@@ -25,21 +33,29 @@ export const fetchCart = () => {
       const token = window.localStorage.getItem(TOKEN);
 
       if (token) {
-        const { data } = await axios.get('/api/cart', {
+        const { data } = await axios.get("/api/cart", {
           headers: {
             authorization: token,
           },
         });
-        await dispatch(_setCart(data));
+        await dispatch(
+          _setCart({
+            ...data,
+            totalQuantity: calculateTotalQuantity(data.products),
+          })
+        );
       } else {
         // GUEST
         const cart = JSON.parse(window.localStorage.getItem(GUEST_CART));
         let newCart;
         if (!cart) {
-          newCart = { products: [] };
+          newCart = { totalQuantity: 0, products: [] };
           window.localStorage.setItem(GUEST_CART, JSON.stringify(newCart));
         } else {
-          newCart = { ...cart };
+          newCart = {
+            ...cart,
+            totalQuantity: calculateTotalQuantity(cart.products),
+          };
         }
         await dispatch(_setCart(newCart));
       }
@@ -55,7 +71,7 @@ export const addToCart = (product) => {
       const token = window.localStorage.getItem(TOKEN);
       if (token) {
         const { data } = await axios.post(
-          '/api/cart',
+          "/api/cart",
           {
             productId: product.id,
           },
@@ -65,12 +81,14 @@ export const addToCart = (product) => {
             },
           }
         );
-        dispatch(_updateCart(data));
+        dispatch(
+          _updateCart({
+            ...data,
+            totalQuantity: calculateTotalQuantity(data.products),
+          })
+        );
       } else {
         // GUEST
-
-        console.info(product);
-        // Retrieve current cart (key in object)
         const cart = JSON.parse(window.localStorage.getItem(GUEST_CART));
         let newCart = { ...cart };
 
@@ -81,13 +99,13 @@ export const addToCart = (product) => {
           ? cart.products.findIndex(({ id }) => id == product.id)
           : -1;
 
-        // Check if product already exists in cart
+
         if (
           productIndexInCart >= 0 &&
           newCart.products[productIndexInCart].cartItem &&
           newCart.products[productIndexInCart].cartItem.quantity
         ) {
-          // Update quantity
+
           newCart.products[productIndexInCart].cartItem.quantity =
             newCart.products[productIndexInCart].cartItem.quantity + 1;
         } else {
@@ -102,11 +120,15 @@ export const addToCart = (product) => {
           }
         }
 
-        // update locally stored cart
+
         window.localStorage.setItem(GUEST_CART, JSON.stringify(newCart));
 
-        // Add product to localstorage cart if it does not already exist
-        dispatch(_updateCart(newCart));
+        dispatch(
+          _updateCart({
+            ...newCart,
+            totalQuantity: calculateTotalQuantity(newCart.products),
+          })
+        );
       }
     } catch (err) {
       console.log(err);
@@ -124,7 +146,12 @@ export const deleteFromCart = (productId) => {
             authorization: token,
           },
         });
-        dispatch(_updateCart(data));
+        dispatch(
+          _updateCart({
+            ...data,
+            totalQuantity: calculateTotalQuantity(data.products),
+          })
+        );
       } else {
         // GUEST
         const cart = JSON.parse(window.localStorage.getItem(GUEST_CART));
@@ -135,7 +162,12 @@ export const deleteFromCart = (productId) => {
 
         const newCart = { ...cart, products: remainingProducts };
         window.localStorage.setItem(GUEST_CART, JSON.stringify(newCart));
-        dispatch(_updateCart(newCart));
+        dispatch(
+          _updateCart({
+            ...newCart,
+            totalQuantity: calculateTotalQuantity(newCart.products),
+          })
+        );
       }
     } catch (err) {
       console.log(err);
@@ -149,7 +181,7 @@ export const updateQuantity = (product, newQuantity) => {
       const token = window.localStorage.getItem(TOKEN);
       if (token) {
         const { data } = await axios.put(
-          '/api/cart',
+          "/api/cart",
           {
             productId: product.id,
             newQuantity,
@@ -160,7 +192,12 @@ export const updateQuantity = (product, newQuantity) => {
             },
           }
         );
-        dispatch(_updateCart(data));
+        dispatch(
+          _updateCart({
+            ...data,
+            totalQuantity: calculateTotalQuantity(data.products),
+          })
+        );
       } else {
         // GUEST
         const cart = JSON.parse(window.localStorage.getItem(GUEST_CART));
@@ -173,7 +210,12 @@ export const updateQuantity = (product, newQuantity) => {
           cart.products.splice(productIdx, 1);
         }
         window.localStorage.setItem(GUEST_CART, JSON.stringify(cart));
-        dispatch(_updateCart(cart));
+        dispatch(
+          _updateCart({
+            ...cart,
+            totalQuantity: calculateTotalQuantity(cart.products),
+          })
+        );
       }
     } catch (err) {
       console.log(err);
@@ -181,7 +223,7 @@ export const updateQuantity = (product, newQuantity) => {
   };
 };
 
-// AFTER CHECKOUT
+
 export const emptyCart = (cart) => {
   return async (dispatch) => {
     try {
@@ -207,6 +249,8 @@ export const emptyCart = (cart) => {
           });
           dispatch(_updateCart(data));
         }
+
+        dispatch(_setCart([]));
       } else {
         // GUEST
         window.localStorage.setItem(
@@ -219,6 +263,8 @@ export const emptyCart = (cart) => {
           },
         });
         dispatch(_updateCart(data));
+
+        dispatch(_setCart([]));
       }
     } catch (err) {
       console.log(err);
@@ -227,14 +273,17 @@ export const emptyCart = (cart) => {
 };
 
 // REDUCER
-const initialState = [];
+const initialState = { totalQuantity: 0, products: [] };
 
 export default function cartReducer(state = initialState, action) {
   switch (action.type) {
     case SET_CART:
       return action.cart;
     case UPDATE_CART:
-      return action.cart;
+      return {
+        ...action.cart,
+        totalQuantity: calculateTotalQuantity(action.cart.products),
+      };
     default:
       return state;
   }
