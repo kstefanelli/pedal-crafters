@@ -68,8 +68,8 @@ const Row = ({ title, value }) => (
 const TotalSection = ({ subtotal, formatCurrency }) => (
   <>
     <Row title='Subtotal' value={formatCurrency(subtotal)} />
-    <Row title='Shipping' value={formatCurrency(2.99)} />
-    <Row title='Total' value={formatCurrency(subtotal + 2.99)} />
+    <Row title='Shipping' value={formatCurrency(5.0)} />
+    <Row title='Total' value={formatCurrency(subtotal + 5.0)} />
   </>
 );
 

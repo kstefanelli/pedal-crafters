@@ -5,12 +5,19 @@ const {
 module.exports = router;
 const { requireToken } = require("./middleware");
 
+// Constants
+const ORDER_STATUS = {
+  OPEN: "open",
+  CLOSED: "closed",
+};
+
 router.get("/", requireToken, async (req, res, next) => {
   try {
-    let order = await Order.findOne({
+    const { id } = req.user.dataValues;
+    const order = await Order.findOne({
       where: {
-        userId: req.user.dataValues.id,
-        status: "open",
+        userId: id,
+        status: ORDER_STATUS.OPEN,
       },
       include: [Product],
       order: [[Product, "id", "DESC"]],
@@ -23,49 +30,51 @@ router.get("/", requireToken, async (req, res, next) => {
 
 router.post("/", requireToken, async (req, res, next) => {
   try {
+    const { id } = req.user.dataValues;
     let order = await Order.findOne({
       where: {
-        userId: req.user.dataValues.id,
-        status: "open",
+        userId: id,
+        status: ORDER_STATUS.OPEN,
       },
       include: [Product],
     });
 
     if (!order) {
       order = await Order.create({
-        status: "open",
-        userId: req.user.dataValues.id,
+        status: ORDER_STATUS.OPEN,
+        userId: id,
       });
     }
 
+    const { productId } = req.body;
     let product = await CartItem.findOne({
       where: {
         orderId: order.id,
-        productId: req.body.productId,
+        productId,
       },
     });
 
     if (!product) {
       await CartItem.create({
         orderId: order.id,
-        productId: req.body.productId,
+        productId,
       });
     } else {
-      let newQuantity = parseInt(product.quantity) + 1;
+      const newQuantity = parseInt(product.quantity) + 1;
       await product.update({
         quantity: newQuantity,
       });
     }
-    // res.send(order);
-    res.send(
-      await Order.findOne({
-        where: {
-          id: order.id,
-        },
-        include: [Product],
-        order: [[Product, "id", "DESC"]],
-      })
-    );
+
+    const updatedOrder = await Order.findOne({
+      where: {
+        id: order.id,
+      },
+      include: [Product],
+      order: [[Product, "id", "DESC"]],
+    });
+
+    res.status(200).send(updatedOrder);
   } catch (err) {
     next(err);
   }
@@ -73,10 +82,11 @@ router.post("/", requireToken, async (req, res, next) => {
 
 router.delete("/:productId", requireToken, async (req, res, next) => {
   try {
-    let orderIdObj = await Order.findOne({
+    const { id } = req.user.dataValues;
+    const orderIdObj = await Order.findOne({
       where: {
-        userId: req.user.dataValues.id,
-        status: "open",
+        userId: id,
+        status: ORDER_STATUS.OPEN,
       },
     });
 
@@ -89,15 +99,15 @@ router.delete("/:productId", requireToken, async (req, res, next) => {
       });
     }
 
-    res.send(
-      await Order.findOne({
-        where: {
-          userId: req.user.dataValues.id,
-          status: "open",
-        },
-        include: [Product],
-      })
-    );
+    const updatedOrder = await Order.findOne({
+      where: {
+        userId: id,
+        status: ORDER_STATUS.OPEN,
+      },
+      include: [Product],
+    });
+
+    res.status(200).send(updatedOrder);
   } catch (err) {
     next(err);
   }
@@ -105,46 +115,48 @@ router.delete("/:productId", requireToken, async (req, res, next) => {
 
 router.put("/", requireToken, async (req, res, next) => {
   try {
+    const { id } = req.user.dataValues;
     let order = await Order.findOne({
       where: {
-        userId: req.user.dataValues.id,
-        status: "open",
+        userId: id,
+        status: ORDER_STATUS.OPEN,
       },
     });
 
     if (!order) {
       order = await Order.create({
-        status: "open",
-        userId: req.user.dataValues.id,
+        status: ORDER_STATUS.OPEN,
+        userId: id,
       });
     }
 
+    const { productId, newQuantity } = req.body;
     let product = await CartItem.findOne({
       where: {
         orderId: order.id,
-        productId: req.body.productId,
+        productId,
       },
     });
 
-    const newQuantity = product.quantity + req.body.newQuantity;
+    const updatedQuantity = product.quantity + newQuantity;
 
-    if (newQuantity <= 0) {
+    if (updatedQuantity <= 0) {
       await product.destroy();
     } else {
       await product.update({
-        quantity: newQuantity,
+        quantity: updatedQuantity,
       });
     }
 
-    res.send(
-      await Order.findOne({
-        where: {
-          id: order.id,
-        },
-        include: [Product],
-        order: [[Product, "id", "DESC"]],
-      })
-    );
+    const updatedOrder = await Order.findOne({
+      where: {
+        id: order.id,
+      },
+      include: [Product],
+      order: [[Product, "id", "DESC"]],
+    });
+
+    res.status(200).send(updatedOrder);
   } catch (err) {
     next(err);
   }
@@ -157,7 +169,7 @@ router.put("/orderSuccess", async (req, res, next) => {
         let order = await Order.findOne({
           where: {
             id: req.body.id,
-            status: "open",
+            status: ORDER_STATUS.OPEN,
           },
         });
 
@@ -166,12 +178,12 @@ router.put("/orderSuccess", async (req, res, next) => {
         }
 
         order.update({
-          status: "closed",
+          status: ORDER_STATUS.CLOSED,
         });
       } else {
         const user = await User.findByToken(req.headers.authorization);
         let order = await Order.create({
-          status: "closed",
+          status: ORDER_STATUS.CLOSED,
           userId: user.id,
         });
         for (let i = 0; i < req.body.products.length; i++) {
@@ -186,7 +198,7 @@ router.put("/orderSuccess", async (req, res, next) => {
           await Order.findOne({
             where: {
               id: order.id,
-              status: "closed",
+              status: ORDER_STATUS.CLOSED,
             },
             include: [Product],
           })
@@ -194,7 +206,7 @@ router.put("/orderSuccess", async (req, res, next) => {
       }
     } else {
       let guestOrder = await Order.create({
-        status: "closed",
+        status: ORDER_STATUS.CLOSED,
       });
       for (let i = 0; i < req.body.products.length; i++) {
         await OrderItems.create({
@@ -208,7 +220,7 @@ router.put("/orderSuccess", async (req, res, next) => {
         await Order.findOne({
           where: {
             id: guestOrder.id,
-            status: "closed",
+            status: ORDER_STATUS.CLOSED,
           },
           include: [Product],
         })
