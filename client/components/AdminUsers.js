@@ -24,7 +24,6 @@ const AdminUsers = ({ users, getAllUsers }) => {
   useEffect(() => {
     getAllUsers();
   }, [getAllUsers]);
-  console.log(users);
   return (
     <div className='p-5'>
       <h2 className='pt-5 text-2xl font-bold text-center'>

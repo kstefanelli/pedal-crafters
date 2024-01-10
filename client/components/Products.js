@@ -27,10 +27,9 @@ const Products = ({ products, getProducts, addToCart }) => {
   );
 
   return (
-    <section className='mx-auto p-5 lg:p-14'>
-      Bicycles
-      <div className='grid-container'>
-        <div className='grid-section-left'>
+    <section className='mx-auto p-7 lg:p-10 xl:p-14'>
+      <div className='grid grid-cols-3 xl:grid-cols-4 space-x-4'>
+        <div className='col-span-1'>
           <CategorySearch
             onSearchChange={(term) => setTerm(term)}
             onFilterClick={handleFilterClick}
@@ -38,7 +37,7 @@ const Products = ({ products, getProducts, addToCart }) => {
           />
         </div>
 
-        <div className='grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8'>
+        <div className='grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-2 xl:gap-8 col-span-2 xl:col-span-3'>
           {productFilter.map((product) =>
             product.name.toLowerCase().includes(term.toLowerCase()) ? (
               <ProductItem

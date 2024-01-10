@@ -126,8 +126,8 @@ const Navbar = ({ isLoggedIn, isAdmin, cart, fetchCart }) => {
 
   return (
     <nav data-nosnippet className='bg-[#085162] z-40 w-full sticky top-0 py-5'>
-      <div className='flex items-center justify-between mx-auto w-5/6'>
-        <h4 className={`text-xl font-bold ${isMenuToggled ? "z-50" : ""}`}>
+      <div className='flex items-center justify-between mx-auto px-7 lg:px-10 xl:px-14'>
+        <h4 className={`text-2xl font-semibold ${isMenuToggled ? "z-50" : ""}`}>
           <Link
             to='/'
             aria-label='Pedal Crafters Logo'
@@ -141,7 +141,7 @@ const Navbar = ({ isLoggedIn, isAdmin, cart, fetchCart }) => {
           </Link>
         </h4>
         {isDesktop ? (
-          <div className='flex justify-between gap-4 text-sm font-bold'>
+          <div className='flex gap-8 text-base'>
             {navItems.map((item, index) => (
               <CustomLink
                 key={index}
@@ -192,7 +192,7 @@ const Navbar = ({ isLoggedIn, isAdmin, cart, fetchCart }) => {
                 />
               </button>
             </div>
-            <div className='flex flex-col text-center gap-5 my-10 text-xl font-semibold'>
+            <div className='flex flex-col text-center gap-6 my-10 text-xl'>
               {navItems.map((item, index) => (
                 <CustomLink
                   key={index}
