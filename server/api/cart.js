@@ -209,7 +209,7 @@ router.put("/orderSuccess", async (req, res, next) => {
         status: ORDER_STATUS.CLOSED,
       });
       for (let i = 0; i < req.body.products.length; i++) {
-        await OrderItems.create({
+        await CartItem.create({
           orderId: guestOrder.id,
           productId: req.body.products[i].orderItems.productId,
           quantity: req.body.products[i].orderItems.quantity,
