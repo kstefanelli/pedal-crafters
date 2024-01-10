@@ -107,6 +107,9 @@ const Navbar = ({ isLoggedIn, isAdmin, cart, fetchCart }) => {
   useEffect(() => {
     setIsMenuToggled(false);
     setSelectedPage((prev) => prev);
+    if (cart.totalQuantity > 0) {
+      fetchCart();
+    }
   }, [cart.totalQuantity, selectedPage]);
 
   useEffect(() => {
