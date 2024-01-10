@@ -1,30 +1,26 @@
 import React from "react";
-import useOrderFetching from "../hooks/useOrderFetching"
+import useOrderFetching from "../hooks/useOrderFetching";
 import OrderItem from "./OrderItem";
 
 const OrderHistory = () => {
   const orders = useOrderFetching();
 
   return (
-    <div className='order-section'>
-      <h3 style={{ marginLeft: "2rem" }}>Order History</h3>
+    <div>
+      <h3 className='text-xl font-bold text-center pb-10'>Order History</h3>
       {orders && orders.length !== 0 ? (
-        <div className='all-order-container'>
+        <div>
           {orders.map((order) => (
-            <div order={order} key={order.id} className='order-container'>
-              <h4 style={{ marginLeft: "2rem" }}>Order number: {order.id}</h4>
-              <div className='order-item-container'>
-                <div></div>
-                <div style={{ fontWeight: "bold" }} className='order-name'>
-                  Name
-                </div>
-                <div style={{ fontWeight: "bold" }} className='order-price'>
-                  Price
-                </div>
-                <div style={{ fontWeight: "bold" }} className='order-quantity'>
-                  Quantity
-                </div>
-                <div style={{ fontWeight: "bold" }}>Total</div>
+            <div key={order.id} className='border-b mb-4 pb-4 w-full mx-auto'>
+              <h4 className='text-lg font-bold text-center flex'>
+                Order number: {order.id}
+              </h4>
+              <div className='grid grid-cols-5 gap-4 font-bold'>
+                <div> </div>
+                <div className='w-32'>Name</div>
+                <div>Price</div>
+                <div>Quantity</div>
+                <div>Total</div>
               </div>
               {order.products.map((item) => (
                 <OrderItem key={item.id} item={item} />
@@ -33,7 +29,7 @@ const OrderHistory = () => {
           ))}
         </div>
       ) : (
-        <div className='div-container'>No recent orders found</div>
+        <div className='mt-4 ml-8 font-bold'>No recent orders found</div>
       )}
     </div>
   );

@@ -2,39 +2,39 @@ import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { fetchUsers } from "../store/allUsers";
 
+const tableHeaders = ["firstName", "lastName", "email", "address"];
+
 const UserTableItem = ({ user, isHeader }) => (
-  <tr className={isHeader ? "all-users-content-label" : "all-users-content"}>
-    <td className={isHeader ? "table-label-name" : "table-content-name"}>
-      {isHeader ? "First name" : user.firstName}
-    </td>
-    <td className={isHeader ? "table-label-name" : "table-content-name"}>
-      {isHeader ? "Last name" : user.lastName}
-    </td>
-    <td className={isHeader ? "table-label-long" : "table-content-long"}>
-      {isHeader ? "Email" : user.email}
-    </td>
-    <td className={isHeader ? "table-label-long" : "table-content-long"}>
-      {isHeader ? "Address" : user.address}
-    </td>
-  </tr>
+  <div
+    className={`grid grid-cols-1 md:grid-cols-4 gap-4 border-b ${
+      isHeader ? "bg-gray-200" : ""
+    }`}
+  >
+    {tableHeaders.map((header, index) => (
+      <div key={index} className={`w-full p-5 ${isHeader ? "font-bold" : ""}`}>
+        {isHeader
+          ? header.charAt(0).toUpperCase() + header.slice(1)
+          : user[header]}
+      </div>
+    ))}
+  </div>
 );
 
 const AdminUsers = ({ users, getAllUsers }) => {
   useEffect(() => {
     getAllUsers();
   }, [getAllUsers]);
-
+  console.log(users);
   return (
-    <div className='all-users-container'>
-      <h2 className='pt-5'>Customer Information</h2>
-      <table className='all-users-table'>
-        <tbody className='all-users-table-body'>
-          <UserTableItem isHeader={true} />
-          {users.map((user) => (
-            <UserTableItem key={user.id} user={user} />
-          ))}
-        </tbody>
-      </table>
+    <div className='p-5'>
+      <h2 className='pt-5 text-2xl font-bold text-center'>
+        Customer Information
+      </h2>
+      <div className='border border-gray-300 mt-4'>
+        {users.map((user, index) => (
+          <UserTableItem key={user.id} user={user} isHeader={index === 0} />
+        ))}
+      </div>
     </div>
   );
 };

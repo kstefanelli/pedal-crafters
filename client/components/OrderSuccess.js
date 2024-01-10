@@ -38,11 +38,9 @@ const OrderSuccess = ({ cart, emptyCart }) => {
   }, []);
 
   return (
-    <div className='div-container'>
-      <h1 style={{ textAlign: "center", marginTop: "150px" }}>
-        Thank you for your order!
-      </h1>
-      <h3 style={{ textAlign: "center" }}>Your Order Number: {orderNumber}</h3>
+    <div className='mt-16 text-center'>
+      <h1 className='text-3xl font-bold mb-4'>Thank you for your order!</h1>
+      <h3 className='text-lg'>Your Order Number: {orderNumber}</h3>
     </div>
   );
 };

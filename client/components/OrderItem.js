@@ -2,27 +2,25 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const OrderItem = ({ item }) => (
-  <div className='order-item-container'>
+  <div className='grid grid-cols-5 gap-2 mt-4'>
     <img
-      className='order-img'
+      className='rounded'
       src={item.imageURL}
       alt={`Image of ${item.name}`}
     />
-    <div className='s-order-name'>
-      <Link to={`/products/${item.id}`}>
-        <span>{item.name}</span>
+    <div>
+      <Link to={`/products/${item.id}`} className='text-black font-medium'>
+        {item.name}
       </Link>
     </div>
-    <span style={{ fontSize: ".8rem" }} className='s-order-price'>
+    <span className='text-sm'>
       {(item.price / 100).toLocaleString("en-US", {
         style: "currency",
         currency: "USD",
       })}
     </span>
-    <span style={{ fontSize: ".8rem" }} className='s-order-quantity'>
-      {item.cartItem.quantity}
-    </span>
-    <span style={{ fontSize: ".8rem" }}>
+    <span className='text-sm'>{item.cartItem.quantity}</span>
+    <span className='text-sm'>
       {((item.cartItem.quantity * item.price) / 100).toLocaleString("en-US", {
         style: "currency",
         currency: "USD",

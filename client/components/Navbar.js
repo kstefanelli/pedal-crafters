@@ -141,7 +141,7 @@ const Navbar = ({ isLoggedIn, isAdmin, cart, fetchCart }) => {
           </Link>
         </h4>
         {isDesktop ? (
-          <div className='flex justify-between gap-4 text-sm font-extrabold'>
+          <div className='flex justify-between gap-4 text-sm font-bold'>
             {navItems.map((item, index) => (
               <CustomLink
                 key={index}
@@ -192,7 +192,7 @@ const Navbar = ({ isLoggedIn, isAdmin, cart, fetchCart }) => {
                 />
               </button>
             </div>
-            <div className='flex flex-col text-center gap-5 my-10 text-2xl font-semibold'>
+            <div className='flex flex-col text-center gap-5 my-10 text-xl font-semibold'>
               {navItems.map((item, index) => (
                 <CustomLink
                   key={index}
