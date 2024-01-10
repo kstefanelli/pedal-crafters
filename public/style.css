@@ -1,9 +1,8 @@
 @import "./styles/forms.css";
-@import "./styles/products.css";
 @import "./styles/footer.css";
 @import "./styles/admin.css";
-@import "./styles/mediaqueries.css";
 @import "./styles/checkout.css";
+@import "./styles/products.css";
 
 html {
   font-family: "Roboto", Helvetica, sans-serif;
