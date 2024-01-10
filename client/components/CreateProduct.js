@@ -89,7 +89,7 @@ const CreateProduct = ({ createProduct, history }) => {
           ))}
 
           <div className='update-btns'>
-            <button type='submit'>Create</button>
+            <button type='submit'>Add</button>
 
             <Link to='/admin/products'>
               <button type='button' className='buttonShadow'>
