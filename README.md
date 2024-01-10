@@ -6,7 +6,7 @@
 
 - [Introduction](#introduction)
 - [Getting Started](#getting-started)
-- [Technologies Used](#technologies-used)
+- [Tech Stack](#tech-stack)
 - [Next Steps](#next-steps)
 
 ## Introduction
@@ -60,36 +60,22 @@ PedalCrafters is an e-commerce website designed to offer a seamless shopping exp
 
 7. Visit [http://localhost:8080](http://localhost:8080) in your browser to explore PedalCrafters.
 
-## Technologies Used
+# Tech Stack
 
-<p align="center">
-  <a href="https://skillicons.dev">
-    <img src="https://skillicons.dev/icons?i=react,redux,js,nodejs,express" />
-  </a>
-</p>
+- React
+- Redux
+- PostgreSQL
+- Sequelize
+- Express
+- Node.js
+- Heroku
+- Tailwind CSS
+- JavaScript
 
-<p align="center">
-  <a href="https://skillicons.dev">
-    <img src="https://skillicons.dev/icons?i=postgres,html,css,heroku" />
-  </a>
-</p>
+# Next Steps:
 
-<br/>
+1. Integrate Stripe for Secure Payments
 
-# Next Steps for Development:
+2. Optimize Sign-In and Registration with Modal Approach
 
-1. Incorporate TypeScript
-
-2. Integrate Tailwind CSS
-
-3. Modernize Components with Functional Syntax
-
-4. Enhance User Experience with Query Parameters
-
-5. Integrate Stripe for Secure Payments
-
-6. Optimize Sign-In and Registration with Modal Approach
-
-7. Strengthen Application by Expanding Test Coverage
-
-8. Convert images to the WebP format for improved performance
+3. Strengthen Application by Expanding Test Coverage
