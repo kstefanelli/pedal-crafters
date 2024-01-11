@@ -11,10 +11,10 @@ const UserProfile = ({ firstName, getUser, handleLogout }) => {
   }, [getUser]);
 
   return (
-    <div className='min-h-screen flex flex-col items-center justify-center px-20 pb-10 pt-5'>
+    <div className='flex flex-col items-center py-8 px-4 lg:px-6 xl:p-12'>
       <div className='text-center'>
         <h2 className='text-2xl font-bold mb-4'>Welcome {firstName}!</h2>
-        <div className='flex justify-end mb-4 text-sm'>
+        <div className='flex justify-center text-sm'>
           <Link to='/profile/update'>
             <button
               type='button'

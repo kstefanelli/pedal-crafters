@@ -2,30 +2,35 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const OrderItem = ({ item }) => (
-  <div className='grid grid-cols-5 gap-2 mt-4'>
+  <div className='grid gap-4 xl:gap-6 space-y-4 grid-cols-4 lg:grid-cols-6 items-center text-start'>
     <img
-      className='rounded'
+      className='rounded col-span-1 hidden lg:block'
       src={item.imageURL}
       alt={`Image of ${item.name}`}
     />
-    <div>
-      <Link to={`/products/${item.id}`} className='text-black font-medium'>
+    <div className='col-span-2 text-xs lg:text-sm xl:text-lg'>
+      <Link
+        to={`/products/${item.id}`}
+        className='text-black font-medium hover:opacity-50'
+      >
         {item.name}
       </Link>
     </div>
-    <span className='text-sm'>
+    <div className='col-span-1 text-xs lg:text-sm xl:text-base hidden lg:block'>
       {(item.price / 100).toLocaleString("en-US", {
         style: "currency",
         currency: "USD",
       })}
-    </span>
-    <span className='text-sm'>{item.cartItem.quantity}</span>
-    <span className='text-sm'>
+    </div>
+    <div className='col-span-1 text-xs lg:text-sm xl:text-base text-center'>
+      {item.cartItem.quantity}
+    </div>
+    <div className='col-span-1 text-xs lg:text-sm xl:text-base'>
       {((item.cartItem.quantity * item.price) / 100).toLocaleString("en-US", {
         style: "currency",
         currency: "USD",
       })}
-    </span>
+    </div>
   </div>
 );
 

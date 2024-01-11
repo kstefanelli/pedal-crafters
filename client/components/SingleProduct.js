@@ -38,7 +38,7 @@ const SingleProduct = ({ product, getSingleProduct, addToCart, match }) => {
             className='bg-[#085162] hover:opacity-50 text-white text-sm font-bold py-2 px-4 rounded'
             onClick={handleAdd}
           >
-            Add To Cart
+            Add to cart
           </button>
         </div>
       </div>
