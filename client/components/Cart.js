@@ -122,7 +122,7 @@ const Cart = ({ cart, fetchCart, deleteFromCart, updateCart }) => {
   };
 
   return (
-    <div className='mx auto p-5 lg:p-14'>
+    <div className='mx auto pt-9 px-7 lg:px-14 lg:pt-14'>
       <div className='mx-12 text-center'>
         <h2 className='font-semibold text-2xl pt-12 xl:pt-0 xl:pb-12'>Cart</h2>
       </div>
