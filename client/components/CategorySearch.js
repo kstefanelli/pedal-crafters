@@ -18,7 +18,7 @@ const CategorySearch = ({ onSearchChange, onFilterClick, filtered }) => {
   return (
     <div>
       <Search onSearchChange={handleSearchChange} />
-      <p className='grid-section-left-category-bold'>Categories</p>
+      <p className='grid-section-left-category-bold'>CATEGORIES</p>
       <ul className='all-categories-list'>
         {categories.map((category) => (
           <li

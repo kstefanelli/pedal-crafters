@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { fetchUsers } from "../store/allUsers";
 
 const buttonStyles =
-  "border rounded-lg bg-[#085162] text-white hover:opacity-50 h-10 w-full px-6 text-base focus:outline-none transition duration-200";
+  "border rounded-lg bg-[#321e1e] text-white hover:opacity-50 h-10 w-full px-6 text-base focus:outline-none transition duration-200";
 
 export const Admin = () => {
   return (

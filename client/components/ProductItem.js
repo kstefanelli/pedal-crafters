@@ -36,13 +36,13 @@ const ProductItem = ({ product, addToCart, isAdminView }) => (
     <div className='flex justify-center cursor-pointer'>
       {isAdminView ? (
         <Link to={`/products/${product.id}/update`}>
-          <button className='bg-[#085162] hover:opacity-50 text-white text-sm font-bold py-2 px-4 rounded'>
+          <button className='bg-[#321e1e] hover:opacity-50 text-white text-sm font-bold py-2 px-4 rounded'>
             Edit Product
           </button>
         </Link>
       ) : (
         <button
-          className='bg-[#085162] hover:opacity-50 text-white text-sm font-bold py-2 px-4 rounded'
+          className='bg-[#321e1e] hover:opacity-50 text-white text-sm font-bold py-2 px-4 rounded'
           onClick={() => addToCart(product)}
         >
           Add to cart

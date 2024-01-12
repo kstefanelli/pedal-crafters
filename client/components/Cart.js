@@ -15,14 +15,14 @@ const formatCurrency = (value) => {
 const Button = ({ onClick, children }) => (
   <button
     onClick={onClick}
-    className={`bg-[#085162] text-white hover:opacity-50 px-2 py-1 rounded-md`}
+    className={`bg-[#321e1e] text-white hover:opacity-50 px-2 py-1 rounded-md`}
   >
     {children}
   </button>
 );
 
 const ColoredButton = ({ onClick, children }) => (
-  <Button onClick={onClick} className='bg-[#085162]'>
+  <Button onClick={onClick} className='bg-[#321e1e]'>
     {children}
   </Button>
 );

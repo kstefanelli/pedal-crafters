@@ -42,7 +42,7 @@
   }
 
   li:hover {
-    color:#085162;
+    color:#321e1e;
     transition-duration: .2s;
     cursor: pointer;
   }
@@ -101,7 +101,7 @@
 
   .add-to-cart, .update-profile {
     border-radius: 5px;
-    background-color:#085162;
+    background-color:#321e1e;
     height: 1rem;
     width: 7rem;
     font-size: 14px;
@@ -123,7 +123,7 @@
   .view-more-btn {
     border-radius: 5px;
     background-color: #fff;
-    color:#085162;
+    color:#321e1e;
     height: 1rem;
     width: 7rem;
     font-size: 14px;

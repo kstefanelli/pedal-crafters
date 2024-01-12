@@ -2,34 +2,3 @@
 @import "./styles/footer.css";
 @import "./styles/checkout.css";
 @import "./styles/products.css";
-
-html {
-  font-family: "Roboto", Helvetica, sans-serif;
-  font-size: 2.5vh;
-  overflow-x: hidden;
-}
-
-body {
-  margin: 0px;
-  min-height: 100vh;
-  width: auto;
-}
-
-.page-container {
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
-a {
-  text-decoration: none;
-}
-
-label {
-  display: block;
-}
-
-form div {
-  display: inline-block;
-}
