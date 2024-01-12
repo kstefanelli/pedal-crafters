@@ -16,7 +16,7 @@
     flex-direction: column;
     padding: 30px;
     border-radius: 10px;
-    background-color: #fff;
+    background-color: #f4f1e0;
 }
 
 .login .title , .signup .title{
@@ -31,32 +31,31 @@
     border-radius: 10px;
     margin: 10px auto;
     padding: 11px 15px;
-    background-color: rgb(245, 245, 245);
+    background-color: #f4f1e0;
     outline: none;
     border: 1px solid rgb(0, 0, 0, 0);
     font-size: 15px;
-    color: rgb(30, 30, 30);
     transition: .2s;
 }
 .login input::placeholder, .signup input::placeholder, .update input::placeholder, textarea::placeholder {
     color: rgb(200, 200, 200);
 }
 .login input:hover, .signup input:hover, .update input:hover, textarea:hover {
-    background-color: #F1EFF1;
+    background-color: #fff;
 }
 .login input:focus, .signup input:focus, .update input:focus, textarea:focus   {
     background-color: #fff;
-    border: 1px solid#085162;
+    border: 1px solid#321e1e;
     box-shadow: 0 0 4px 2px rgb(50, 50, 50, .1);
 }
 
 .login input:valid, .signup input:valid, .update input:valid, textarea:valid {
-    border: 1px solid rgb(220, 220, 220);
+    border: 1px solid #321E1E;
 }
 
 .login button, .signup button, .update-btns button {
     border-radius: 10px;
-    background-color:#085162;
+    background-color:#321e1e;
     height: 45px;
     padding: 12px;
     width: 260px;
@@ -84,7 +83,7 @@
 .login .buttonShadow:hover, .signup .buttonShadow:hover, .update-btns .buttonShadow:hover  {
     background-color: rgb(50, 50, 50, .2);
 }
-
+input-container
 .login a {
     text-decoration: none;
     color: rgb(160, 160, 160);

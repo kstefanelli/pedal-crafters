@@ -35,7 +35,7 @@ const SingleProduct = ({ product, getSingleProduct, addToCart, match }) => {
           <p className='text-sm'>{product.description}</p>
 
           <button
-            className='bg-[#085162] hover:opacity-50 text-white text-sm font-bold py-2 px-4 rounded'
+            className='bg-[#321e1e] hover:opacity-50 text-white text-sm font-bold py-2 px-4 rounded'
             onClick={handleAdd}
           >
             Add to cart
@@ -48,7 +48,7 @@ const SingleProduct = ({ product, getSingleProduct, addToCart, match }) => {
   const renderNoProduct = () => (
     <div className='flex flex-col items-center'>
       <p className='text-xl font-semibold mb-2'>Check back soon!</p>
-      <Link to='/' className='text-[#085162]'>
+      <Link to='/' className='text-[#321e1e]'>
         <p className='text-xl font-semibold'>Return to Shop</p>
       </Link>
     </div>

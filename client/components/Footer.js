@@ -5,12 +5,12 @@ const Footer = () => (
     <ul className='footer-list'>
       <li className='footer-link'>
         <a href='https://kristinastefanelli.com' className='footer-link'>
-          Contact
+          CONTACT
         </a>
       </li>
       <li className='footer-link'>
         <a href='https://github.com/kstefanelli' className='footer-link'>
-          GitHub
+          GITHUB
         </a>
       </li>
     </ul>

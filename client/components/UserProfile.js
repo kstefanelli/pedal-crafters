@@ -18,7 +18,7 @@ const UserProfile = ({ firstName, getUser, handleLogout }) => {
           <Link to='/profile/update'>
             <button
               type='button'
-              className='bg-[#085162] text-white hover:opacity-50 px-4 py-2 rounded-md w-32 h-10'
+              className='bg-[#321e1e] text-white hover:opacity-50 px-4 py-2 rounded-md w-32 h-10'
             >
               Edit Profile
             </button>
@@ -26,7 +26,7 @@ const UserProfile = ({ firstName, getUser, handleLogout }) => {
 
           <button
             type='button'
-            className='bg-[#085162] text-white hover:opacity-50 px-4 py-2 rounded-md ml-2 w-32 h-10'
+            className='bg-[#321e1e] text-white hover:opacity-50 px-4 py-2 rounded-md ml-2 w-32 h-10'
             onClick={handleLogout}
           >
             Logout

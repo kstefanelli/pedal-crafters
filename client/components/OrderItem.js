@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const OrderItem = ({ item }) => (
-  <div className='grid gap-4 xl:gap-6 space-y-4 grid-cols-4 lg:grid-cols-6 items-center text-start'>
+  <div className='grid gap-4 space-y-4 xl:gap-6 grid-cols-4 lg:grid-cols-6 items-center text-start'>
     <img
       className='rounded col-span-1 hidden lg:block'
       src={item.imageURL}

@@ -36,14 +36,14 @@ const AuthForm = ({ name, displayName, handleSubmit, error }) => {
             <Button
               type='submit'
               label='Sign in'
-              className='bg-[#085162] text-white p-2 rounded hover:opacity-50'
+              className='bg-[#321e1e] text-white p-2 rounded hover:opacity-50'
             />
             <p className='text'>Don't have an account?</p>
             <Link to='/register'>
               <Button
                 type='submit'
                 label='Create new account'
-                className='bg-[#085162] text-white p-2 rounded hover:opacity-50'
+                className='bg-[#321e1e] text-white p-2 rounded hover:opacity-50'
               />
             </Link>
           </div>

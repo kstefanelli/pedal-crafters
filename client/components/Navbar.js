@@ -32,9 +32,9 @@ const CustomLink = ({
       className={`${
         selectedPage === lowerCasePage ||
         (selectedPage === "Home" && lowerCasePage === "")
-          ? "text-orange-400 underline underline-offset-4 decoration-2"
-          : "text-white"
-      } hover:text-orange-400 transition duration-500 hover:underline hover:underline-offset-4 hover:decoration-2`}
+          ? "text-[#FFA364] underline underline-offset-4 decoration-2 font-bold"
+          : "text-[#321E1E] font-bold"
+      } hover:text-[#FFA364] transition duration-500 hover:underline hover:underline-offset-4 hover:decoration-2`}
       aria-label={`Link to the ${page === "" ? "Home" : label} page`}
       onClick={handleClick}
     >
@@ -55,17 +55,17 @@ const Navbar = ({ isLoggedIn, isAdmin, cart, fetchCart }) => {
   }, [fetchCart, cart.totalQuantity]);
 
   const commonItems = [
-    { path: "/products", label: "Products", show: true },
-    { path: "/profile", label: "Profile", show: isLoggedIn },
-    { path: "/signin", label: "Sign in", show: !isLoggedIn },
+    { path: "/products", label: "PRODUCTS", show: true },
+    { path: "/profile", label: "PROFILE", show: isLoggedIn },
+    { path: "/signin", label: "SIGN IN", show: !isLoggedIn },
     {
       path: "/cart",
-      label: `Cart${cart.totalQuantity ? ` (${cart.totalQuantity})` : ""}`,
+      label: `CART${cart.totalQuantity ? ` (${cart.totalQuantity})` : ""}`,
       show: true,
     },
   ];
 
-  const adminItems = [{ path: "/admin", label: "Admin", show: isAdmin }];
+  const adminItems = [{ path: "/admin", label: "ADMIN", show: isAdmin }];
   const navItems = [
     ...commonItems.filter((item) => item.show),
     ...adminItems.filter((item) => item.show),
@@ -125,19 +125,19 @@ const Navbar = ({ isLoggedIn, isAdmin, cart, fetchCart }) => {
   }, [isMenuToggled]);
 
   return (
-    <nav data-nosnippet className='bg-[#085162] z-40 w-full sticky top-0 py-5'>
+    <nav data-nosnippet className='bg-[#f4f1e0] z-40 w-full sticky top-0 py-5'>
       <div className='flex items-center justify-between mx-auto px-7 lg:px-10 xl:px-14'>
         <h4 className={`text-2xl font-semibold ${isMenuToggled ? "z-50" : ""}`}>
           <Link
             to='/'
             aria-label='Pedal Crafters Logo'
-            className='hover:text-orange-500 transition duration-500 text-white'
+            className='hover:text-[#FFA364] transition duration-500 text-[#321E1E]'
             onClick={() => {
               scrollToTop();
               setIsMenuToggled(false);
             }}
           >
-            Pedal Crafters
+            PEDALCRAFTERS
           </Link>
         </h4>
         {isDesktop ? (
@@ -175,7 +175,7 @@ const Navbar = ({ isLoggedIn, isAdmin, cart, fetchCart }) => {
           <div
             className={`transition-transform transform duration-500 ${
               isMenuToggled ? "translate-x-0" : "translate-x-full"
-            } fixed top-0 right-0 min-h-[100vh] bg-[#085162] w-screen`}
+            } fixed top-0 right-0 min-h-[100vh] bg-[#f4f1e0] w-screen`}
           >
             <div className='flex justify-end py-6 mx-auto w-5/6'>
               <button
@@ -192,7 +192,7 @@ const Navbar = ({ isLoggedIn, isAdmin, cart, fetchCart }) => {
                 />
               </button>
             </div>
-            <div className='flex flex-col text-center gap-6 my-10 text-xl'>
+            <div className='flex flex-col text-center gap-6 text-xl justify-center min-h-[75vh]'>
               {navItems.map((item, index) => (
                 <CustomLink
                   key={index}
