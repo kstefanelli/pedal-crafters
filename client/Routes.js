@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { withRouter, Route, Switch } from "react-router-dom";
 import { SignIn } from "./components/AuthForm";
@@ -20,75 +20,58 @@ import Checkout from "./components/Checkout";
 import AdminUsers from "./components/AdminUsers";
 import AdminShop from "./components/AdminShop";
 
-class Routes extends Component {
-  componentDidMount() {
-    this.props.loadInitialData();
-  }
+const Routes = ({ isLoggedIn, isAdmin, loadInitialData }) => {
+  useEffect(() => {
+    loadInitialData();
+  }, [loadInitialData]);
 
-  render() {
-    const { isLoggedIn, isAdmin } = this.props;
+  const commonRoutes = (
+    <Switch>
+      <Route exact path='/' component={Home} />
+      <Route exact path='/products' component={Products} />
+      <Route exact path='/products/:id' component={SingleProduct} />
+      <Route exact path='/cart' component={Cart} />
+      <Route path='/checkout' component={Checkout} />
+      <Route path='/orderSuccess' component={OrderSuccess} />
+      <Route path='/profile' component={UserProfile} />
+      <Route path='/profile/update' component={UpdateUser} />
+      <Route path='/users/orders' component={OrderHistory} />
+      <Route path='*' component={NotFoundPage} status={404} />
+    </Switch>
+  );
 
-    return (
-      <div>
-        {isLoggedIn ? (
-          <div>
-            {isAdmin ? (
-              <Switch>
-                {/* Routes if logged in and admin */}
-                <Route exact path='/' component={Home} />
-                <Route exact path='/admin' component={Admin} />
-                <Route exact path='/admin/users' component={AdminUsers} />
-                <Route exact path='/admin/products' component={AdminShop} />
-                <Route exact path='/products' component={Products} />
-                <Route path='/products/add' component={CreateProduct} />
-                <Route exact path='/profile/update' component={UpdateUser} />
-                <Route
-                  exact
-                  path='/products/:id/update'
-                  component={UpdateProduct}
-                />
-                <Route path='/products/:id' component={SingleProduct} />
-                <Route exact path='/cart' component={Cart} />
-                <Route exact path='/profile' component={UserProfile} />
-                <Route path='/users/orders' component={OrderHistory} />
-                <Route path='/checkout' component={Checkout} />
-                <Route path='/orderSuccess' component={OrderSuccess} />
-                <Route path='*' component={NotFoundPage} status={404} />
-              </Switch>
-            ) : (
-              <Switch>
-                {/* Routes if logged in but not admin */}
-                <Route exact path='/' component={Home} />
-                <Route exact path='/products' component={Products} />
-                <Route exact path='/products/:id' component={SingleProduct} />
-                <Route exact path='/cart' component={Cart} />
-                <Route exact path='/profile' component={UserProfile} />
-                <Route exact path='/profile/update' component={UpdateUser} />
-                <Route path='/users/orders' component={OrderHistory} />
-                <Route path='/checkout' component={Checkout} />
-                <Route path='/orderSuccess' component={OrderSuccess} />
-                <Route path='*' component={NotFoundPage} status={404} />
-              </Switch>
-            )}
-          </div>
-        ) : (
-          <Switch>
-            {/* Routes if not logged in */}
-            <Route exact path='/' component={Home} />
-            <Route path='/signin' component={SignIn} />
-            <Route path='/register' component={CreateUser} />
-            <Route exact path='/products' component={Products} />
-            <Route exact path='/products/:id' component={SingleProduct} />
-            <Route exact path='/cart' component={Cart} />
-            <Route path='/checkout' component={Checkout} />
-            <Route path='/orderSuccess' component={OrderSuccess} />
-            <Route path='*' component={NotFoundPage} status={404} />
-          </Switch>
-        )}
-      </div>
-    );
-  }
-}
+  return (
+    <div>
+      {isLoggedIn ? (
+        <Switch>
+          {isAdmin && <Route exact path='/admin' component={Admin} />}
+          {isAdmin && (
+            <Route exact path='/admin/users' component={AdminUsers} />
+          )}
+          {isAdmin && (
+            <Route exact path='/admin/products' component={AdminShop} />
+          )}
+          {isAdmin && <Route path='/products/add' component={CreateProduct} />}
+          {isAdmin && (
+            <Route
+              exact
+              path='/products/:id/update'
+              component={UpdateProduct}
+            />
+          )}
+          <Route exact path='/profile/update' component={UpdateUser} />
+          {commonRoutes}
+        </Switch>
+      ) : (
+        <Switch>
+          <Route path='/signin' component={SignIn} />
+          <Route path='/register' component={CreateUser} />
+          {commonRoutes}
+        </Switch>
+      )}
+    </div>
+  );
+};
 
 const mapState = (state) => {
   return {
