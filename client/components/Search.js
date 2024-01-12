@@ -11,7 +11,7 @@ const Search = ({ onSearchChange }) => {
 
   return (
     <input
-      className='h-2 w-20 md:w-28 lg:w-32 rounded-md px-4 py-3 bg-gray-200 outline-none border border-transparent text-xs md:text-base text-gray-700 transition duration-200'
+      className='h-2 w-24 md:w-28 lg:w-32 rounded-md px-4 py-3 bg-gray-200 outline-none border border-transparent text-xs md:text-base text-gray-700 transition duration-200'
       placeholder='SEARCH'
       value={term}
       onChange={handleChange}

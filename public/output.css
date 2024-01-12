@@ -502,6 +502,12 @@ video {
 .sticky{
   position: sticky;
 }
+.bottom-0{
+  bottom: 0px;
+}
+.left-0{
+  left: 0px;
+}
 .right-0{
   right: 0px;
 }
@@ -522,6 +528,9 @@ video {
 }
 .col-span-2{
   grid-column: span 2 / span 2;
+}
+.m-0{
+  margin: 0px;
 }
 .mx-12{
   margin-left: 3rem;
@@ -586,8 +595,8 @@ video {
 .w-1\/2{
   width: 50%;
 }
-.w-20{
-  width: 5rem;
+.w-24{
+  width: 6rem;
 }
 .w-32{
   width: 8rem;
@@ -745,6 +754,9 @@ video {
   -o-object-fit: cover;
      object-fit: cover;
 }
+.p-0{
+  padding: 0px;
+}
 .p-10{
   padding: 2.5rem;
 }
@@ -808,6 +820,9 @@ video {
 }
 .pb-4{
   padding-bottom: 1rem;
+}
+.pr-10{
+  padding-right: 2.5rem;
 }
 .pt-12{
   padding-top: 3rem;
@@ -1010,6 +1025,10 @@ body,
     grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 
+  .md\:flex-row{
+    flex-direction: row;
+  }
+
   .md\:justify-end{
     justify-content: flex-end;
   }
@@ -1050,6 +1069,16 @@ body,
     grid-template-columns: repeat(6, minmax(0, 1fr));
   }
 
+  .lg\:items-center{
+    align-items: center;
+  }
+
+  .lg\:space-y-0 > :not([hidden]) ~ :not([hidden]){
+    --tw-space-y-reverse: 0;
+    margin-top: calc(0px * calc(1 - var(--tw-space-y-reverse)));
+    margin-bottom: calc(0px * var(--tw-space-y-reverse));
+  }
+
   .lg\:p-10{
     padding: 2.5rem;
   }
@@ -1079,6 +1108,10 @@ body,
 
   .lg\:pt-14{
     padding-top: 3.5rem;
+  }
+
+  .lg\:text-center{
+    text-align: center;
   }
 
   .lg\:text-base{
