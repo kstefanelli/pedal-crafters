@@ -3,7 +3,7 @@ import React from "react";
 const Footer = () => (
   <div className='bottom-0 w-full left-0 right-0'>
     <div className='bg-[#f4f1e0] p-7 lg:p-10 flex items-center justify-center'>
-      <ul className='flex flex-col space-y-4 lg:space-y-0 md:flex-row text-start w-full lg:text-center lg:items-center justify-center m-0 p-0'>
+      <ul className='flex flex-col gap-2 md:flex-row text-start w-full lg:text-center lg:items-center justify-center m-0 p-0'>
         {[
           { link: "https://kristinastefanelli.com", text: "CONTACT" },
           { link: "https://github.com/kstefanelli", text: "GITHUB" },
