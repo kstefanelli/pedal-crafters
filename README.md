@@ -11,7 +11,7 @@ View deployed site here - [Pedal Crafters](https://pedal-crafter-d29c20011a41.he
 
 ## Introduction
 
-PedalCrafters is an e-commerce website designed to offer a seamless shopping experience for bicycle enthusiasts. It is built with a focus on user-friendly navigation and responsiveness across various devices. The project is developed using React.js, Node.js, Express, PostgreSQL, Tailwind CSS and hosted on Heroku.
+PedalCrafters is a mock e-commerce website designed to offer a seamless shopping experience for bicycle enthusiasts. It is built with a focus on user-friendly navigation and responsiveness across various devices. The project is developed using React.js, Node.js, Express, PostgreSQL, Tailwind CSS and hosted on Heroku.
 
 Navigate Pedal Crafters with the following credentials or sign up and create your own account:
 
