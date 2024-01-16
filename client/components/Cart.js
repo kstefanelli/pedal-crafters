@@ -76,19 +76,15 @@ const TotalSection = ({ subtotal, formatCurrency }) => (
 const LeftSideCart = ({ cart, handleDelete, updateCart, formatCurrency }) => (
   <div className='md:col-span-2 border-4 border-black rounded-md p-2 md:p-4'>
     <div className='space-y-2'>
-      {cart?.products?.length > 0 ? (
-        cart.products.map((product) => (
-          <CartItem
-            key={product.id}
-            product={product}
-            updateCart={updateCart}
-            handleDelete={handleDelete}
-            formatCurrency={formatCurrency}
-          />
-        ))
-      ) : (
-        <p className='font-bold text-center'>Cart is Empty</p>
-      )}
+      {cart.products.map((product) => (
+        <CartItem
+          key={product.id}
+          product={product}
+          updateCart={updateCart}
+          handleDelete={handleDelete}
+          formatCurrency={formatCurrency}
+        />
+      ))}
     </div>
   </div>
 );
@@ -121,22 +117,55 @@ const Cart = ({ cart, fetchCart, deleteFromCart, updateCart }) => {
     );
   };
 
+  const isCartEmpty = cart?.products?.length > 0;
+
   return (
-    <div className='mx auto pt-9 px-7 lg:px-14 lg:pt-14'>
+    <div className='mx auto min-h-[75vh] px-7 lg:px-14 justify-center text-center flex flex-col'>
       <div className='mx-12 text-center'>
-        <h2 className='font-semibold text-2xl pt-12 xl:pt-0 xl:pb-12'>Cart</h2>
+        {isCartEmpty ? (
+          <h2 className='font-semibold text-2xl pt-12 xl:pt-0 pb-2 xl:pb-12'>
+            Cart
+          </h2>
+        ) : (
+          <></>
+        )}
       </div>
-      <div className='xl:grid xl:grid-cols-2 xl:grid-flow-col space-y-8 xl:space-y-0 xl:gap-20'>
-        <LeftSideCart
-          cart={cart}
-          handleDelete={handleDelete}
-          updateCart={updateCart}
-          formatCurrency={formatCurrency}
-        />
-        <RightSideCart
-          subtotal={calculateSubtotal()}
-          formatCurrency={formatCurrency}
-        />
+      <div
+        className={`${
+          isCartEmpty
+            ? "xl:grid xl:grid-cols-2 xl:grid-flow-col space-y-8 xl:space-y-0 xl:gap-20"
+            : "flex flex-col items-center justify-center gap-8"
+        }`}
+      >
+        {isCartEmpty ? (
+          <>
+            <LeftSideCart
+              cart={cart}
+              handleDelete={handleDelete}
+              updateCart={updateCart}
+              formatCurrency={formatCurrency}
+            />
+            <RightSideCart
+              subtotal={calculateSubtotal()}
+              formatCurrency={formatCurrency}
+            />
+          </>
+        ) : (
+          <div className='text-center flex flex-col gap-2 lg:gap-4'>
+            {" "}
+            <span className='font-bold text-2xl lg:text-4xl tracking-tight'>
+              {" "}
+              NOTHING TO SEE HERE!{" "}
+            </span>{" "}
+            <span className='text-xl font-light pb-4'>
+              {" "}
+              Lets fix that.{" "}
+            </span>{" "}
+            <Link to='/products' className='text-xl font-bold tracking-tight'>
+              SHOP ALL
+            </Link>
+          </div>
+        )}
       </div>
     </div>
   );

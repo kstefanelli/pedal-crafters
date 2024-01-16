@@ -843,9 +843,6 @@ video {
 .pt-8{
   padding-top: 2rem;
 }
-.pt-9{
-  padding-top: 2.25rem;
-}
 .text-center{
   text-align: center;
 }
@@ -888,6 +885,9 @@ video {
 }
 .font-extrabold{
   font-weight: 800;
+}
+.font-light{
+  font-weight: 300;
 }
 .font-medium{
   font-weight: 500;
@@ -1152,12 +1152,13 @@ body,
     padding-top: 0px;
   }
 
-  .lg\:pt-14{
-    padding-top: 3.5rem;
-  }
-
   .lg\:text-center{
     text-align: center;
+  }
+
+  .lg\:text-4xl{
+    font-size: 2.25rem;
+    line-height: 2.5rem;
   }
 
   .lg\:text-base{
