@@ -1,29 +1,58 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
+const inputStyles =
+  "rounded-lg m-2 mx-auto px-15 h-11 w-72 bg-gray-200 pl-2 outline-none border border-transparent text-sm lg:text-base transition duration-200";
+
+const buttonStyles =
+  "rounded-lg bg-[#321e1e] h-11 w-72 text-base font-bold text-white border-none cursor-pointer transition duration-200 hover:bg-opacity-50";
+
+const handleChange = (event, setInfo) => {
+  const { name, value } = event.target;
+  setInfo((prevInfo) => ({ ...prevInfo, [name]: value }));
+};
+
+const renderInputFields = (info, setInfo) => {
+  return Object.entries(info).map(([key, value]) => {
+    const placeholderText = key.replace(/([a-z])([A-Z])/g, "$1 $2");
+    const updatedPlaceholder =
+      key === "ccv"
+        ? "CCV"
+        : placeholderText.charAt(0).toUpperCase() + placeholderText.slice(1);
+    return (
+      <div key={key}>
+        <input
+          className={`${inputStyles}`}
+          type='text'
+          name={key}
+          placeholder={updatedPlaceholder}
+          onChange={(e) => handleChange(e, setInfo)}
+          value={value}
+          required
+        />
+      </div>
+    );
+  });
+};
+
 const Checkout = () => {
   const [shippingInfo, setShippingInfo] = useState({
     name: "",
     phoneNumber: "",
-    email: "",
+    emailAddress: "",
     street: "",
     apartment: "",
     city: "",
     state: "",
-    zip: "",
+    zipCode: "",
   });
 
   const [billingInfo, setBillingInfo] = useState({
     nameOnCard: "",
     cardNumber: "",
-    secureCode: "",
-    expiration: "",
+    ccv: "",
+    expirationDate: "",
   });
-
-  const handleChange = (event, setInfo) => {
-    const { name, value } = event.target;
-    setInfo((prevInfo) => ({ ...prevInfo, [name]: value }));
-  };
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -41,86 +70,65 @@ const Checkout = () => {
   };
 
   const validateFormData = (formData) => {
-    return (
-      formData.name &&
-      formData.phoneNumber &&
-      formData.email &&
-      formData.street &&
-      formData.city &&
-      formData.state &&
-      formData.zip &&
-      formData.nameOnCard &&
-      formData.cardNumber &&
-      formData.secureCode &&
-      formData.expiration
-    );
+    let isValid = true;
+
+    Object.entries(formData).forEach(([key, value]) => {
+      if (value.trim() === "") {
+        isValid = false;
+      }
+    });
+
+    isValid =
+      isValid &&
+      validatePhone(formData.phoneNumber) &&
+      validateEmail(formData.email);
+
+    return isValid;
+  };
+
+  const validatePhone = (phone) => {
+    const phoneRegex = /^\d{10}$/;
+    return phoneRegex.test(phone);
+  };
+
+  const validateEmail = (email) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
   };
 
   return (
-    <div>
+    <div className='mx-auto lg:w-5/6 xl:w-1/2'>
       <div>
-        <h2 style={{ textAlign: "center" }}>Checkout</h2>
+        <h2 className='text-center font-bold text-3xl'>Checkout</h2>
       </div>
       <div>
-        <h3 style={{ marginLeft: "2rem", fontWeight: "lighter" }}>
+        <h3 className='md:ml-8 my-4 lg:my-8 font-bold text-center md:text-start'>
           Shipping Information
         </h3>
-        <form className='billing-details-container' onSubmit={handleSubmit}>
-          {Object.entries(shippingInfo).map(([key, value]) => (
-            <input
-              key={key}
-              className='shipping-info-field'
-              type='text'
-              name={key}
-              placeholder={key.charAt(0).toUpperCase() + key.slice(1)}
-              onChange={(e) => handleChange(e, setShippingInfo)}
-              value={value}
-              required
-              onInvalid={(e) => {
-                e.target.setCustomValidity(
-                  `${
-                    key.charAt(0).toUpperCase() + key.slice(1)
-                  } is a required field`
-                );
-                alert(`Go back and add ${key} for your order`);
-              }}
-              onInput={(e) => e.target.setCustomValidity("")}
-            />
-          ))}
+        <form
+          className='grid md:grid-cols-2 gap-4 lg:gap-6 justify-center text-center'
+          onSubmit={handleSubmit}
+        >
+          {renderInputFields(shippingInfo, setShippingInfo)}
         </form>
       </div>
 
-      <div style={{ marginTop: "4rem" }}>
-        <h3 style={{ marginLeft: "2rem", fontWeight: "lighter" }}>
+      <div>
+        <h3 className='md:ml-8 my-4 lg:my-8 font-bold text-center md:text-start'>
           Billing Information
         </h3>
-        <form className='billing-details-container' onSubmit={handleSubmit}>
-          {Object.entries(billingInfo).map(([key, value]) => (
-            <input
-              key={key}
-              className='shipping-info-field'
-              type='text'
-              name={key}
-              placeholder={key.charAt(0).toUpperCase() + key.slice(1)}
-              onChange={(e) => handleChange(e, setBillingInfo)}
-              value={value}
-              required
-              onInvalid={(e) => {
-                e.target.setCustomValidity(
-                  `${
-                    key.charAt(0).toUpperCase() + key.slice(1)
-                  } is a required field`
-                );
-                alert(`Go back and add ${key} for your order`);
-              }}
-              onInput={(e) => e.target.setCustomValidity("")}
-            />
-          ))}
+        <form
+          className='grid md:grid-cols-2 gap-4 lg:gap-6 justify-center text-center'
+          onSubmit={handleSubmit}
+        >
+          {renderInputFields(billingInfo, setBillingInfo)}
         </form>
       </div>
-      <button className='complete-checkout-btn' type='button'>
-        <Link to='/orderSuccess'>Place Order</Link>
-      </button>
+      <div className='text-center mt-4 lg:mt-8'>
+        <button className={buttonStyles} type='button'>
+          <Link to='/orderSuccess'>Place Order</Link>
+        </button>
+      </div>
     </div>
   );
 };
