@@ -18,12 +18,16 @@ const CategorySearch = ({ onSearchChange, onFilterClick, filtered }) => {
   return (
     <div>
       <Search onSearchChange={handleSearchChange} />
-      <p className='grid-section-left-category-bold'>CATEGORIES</p>
-      <ul className='all-categories-list'>
+      <p className='font-bold mt-4 mb-2.5 pl-0 text-lg md:text-2xl'>
+        CATEGORIES
+      </p>
+      <ul className='p-0'>
         {categories.map((category) => (
           <li
             key={`cat-${category.toLowerCase()} shop-cat`}
-            className={`cat-list${filtered === category ? " active" : ""}`}
+            className={`text-base md:text-xl mb-2.5 font-semibold hover:text-[#FFA364] hover:cursor-pointer transition duration-500 ${
+              filtered === category ? "active text-[#FFA364]" : ""
+            }`}
             onClick={() => handleFilterClick(category)}
           >
             {category}

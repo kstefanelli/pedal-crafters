@@ -159,7 +159,7 @@ const Cart = ({ cart, fetchCart, deleteFromCart, updateCart }) => {
             </span>{" "}
             <span className='text-xl font-light pb-4'>
               {" "}
-              Lets fix that.{" "}
+              Let's fix that.{" "}
             </span>{" "}
             <Link to='/products' className='text-xl font-bold tracking-tight'>
               SHOP ALL

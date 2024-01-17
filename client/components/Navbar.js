@@ -34,7 +34,7 @@ const CustomLink = ({
         (selectedPage === "Home" && lowerCasePage === "")
           ? "text-[#FFA364] underline underline-offset-4 decoration-2 font-bold"
           : "text-[#321E1E] font-bold"
-      } hover:text-[#FFA364] transition duration-500 hover:underline hover:underline-offset-4 hover:decoration-2`}
+      } hover:text-[#FFA364] transition duration-500 hover:underline hover:underline-offset-4 hover:decoration-2 text-2xl lg:text-xl`}
       aria-label={`Link to the ${page === "" ? "Home" : label} page`}
       onClick={handleClick}
     >
@@ -141,7 +141,7 @@ const Navbar = ({ isLoggedIn, isAdmin, cart, fetchCart }) => {
           </Link>
         </h4>
         {isDesktop ? (
-          <div className='flex gap-8 text-base'>
+          <div className='flex gap-8'>
             {navItems.map((item, index) => (
               <CustomLink
                 key={index}
@@ -192,7 +192,7 @@ const Navbar = ({ isLoggedIn, isAdmin, cart, fetchCart }) => {
                 />
               </button>
             </div>
-            <div className='flex flex-col text-center gap-6 text-xl justify-center min-h-[75vh]'>
+            <div className='flex flex-col text-center gap-6 justify-center min-h-[75vh]'>
               {navItems.map((item, index) => (
                 <CustomLink
                   key={index}
