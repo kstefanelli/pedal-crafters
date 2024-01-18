@@ -8,7 +8,7 @@ const buttonStyles =
 
 export const Admin = () => {
   return (
-    <div className='flex flex-col items-center text-center pt-32'>
+    <div className='flex flex-col items-center text-center min-h-[75vh] justify-center'>
       <h2 className='text-2xl font-bold'>Admin Dashboard:</h2>
       <div className='flex flex-col items-center space-y-4 mt-8'>
         <Link to='/admin/users'>
