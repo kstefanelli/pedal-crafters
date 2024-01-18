@@ -2,21 +2,19 @@ import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { fetchUsers } from "../store/allUsers";
 
-const tableHeaders = ["firstName", "lastName", "email", "address"];
-
-const UserTableItem = ({ user, isHeader }) => (
+const UserGridItem = ({ user, isHeader }) => (
   <div
-    className={`grid grid-cols-1 md:grid-cols-4 gap-4 border-b ${
-      isHeader ? "bg-gray-200" : ""
+    className={`grid grid-cols-4 gap-2 text-start items-center text-sm md:text-base xl:text-xl border-b pl-2 font-medium ${
+      isHeader ? "bg-gray-200 font-bold" : ""
     }`}
   >
-    {tableHeaders.map((header, index) => (
-      <div key={index} className={`w-full p-5 ${isHeader ? "font-bold" : ""}`}>
-        {isHeader
-          ? header.charAt(0).toUpperCase() + header.slice(1)
-          : user[header]}
-      </div>
-    ))}
+    <div className='col-span-1'>
+      {isHeader ? "First Name" : `${user.firstName}`}
+    </div>
+    <div className='col-span-1'>
+      {isHeader ? "Last Name" : `${user.lastName}`}
+    </div>
+    <div className='col-span-2'>{isHeader ? "Email" : user.email}</div>
   </div>
 );
 
@@ -24,14 +22,15 @@ const AdminUsers = ({ users, getAllUsers }) => {
   useEffect(() => {
     getAllUsers();
   }, [getAllUsers]);
+
   return (
-    <div className='p-5'>
+    <div className='p-5 lg:px-20'>
       <h2 className='pt-5 text-2xl font-bold text-center'>
         Customer Information
       </h2>
       <div className='border border-gray-300 mt-4'>
         {users.map((user, index) => (
-          <UserTableItem key={user.id} user={user} isHeader={index === 0} />
+          <UserGridItem key={user.id} user={user} isHeader={index === 0} />
         ))}
       </div>
     </div>
