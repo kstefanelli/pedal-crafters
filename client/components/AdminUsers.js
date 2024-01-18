@@ -23,6 +23,10 @@ const AdminUsers = ({ users, getAllUsers }) => {
     getAllUsers();
   }, [getAllUsers]);
 
+  if (!users.length) {
+    return <p>Loading...</p>;
+  }
+
   return (
     <div className='p-5 lg:px-20'>
       <h2 className='pt-5 text-2xl font-bold text-center'>
