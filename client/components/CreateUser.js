@@ -2,14 +2,13 @@ import React, { useState } from "react";
 import { connect } from "react-redux";
 import { createUser } from "../store/allUsers";
 
-const Input = ({ type, name, placeholder, value, onChange }) => (
+const Input = ({ type, name, placeholder, required, onChange }) => (
   <input
-    className='w-full p-2 mb-4 border rounded focus:outline-none focus:border-blue-500'
+    className='w-full p-2 mb-4 border rounded-lg focus:outline-none focus:border-[#321e1e]'
     type={type}
     name={name}
     placeholder={placeholder}
-    required
-    value={value}
+    required={required}
     onChange={onChange}
   />
 );
@@ -45,34 +44,43 @@ const CreateUser = ({ createUser, history }) => {
   };
 
   return (
-    <div className='create-form form div-container'>
-      <form onSubmit={handleSubmit}>
-        <div className='form-container signup'>
-          <div className='signup-card'>
-            <p className='title'>Register</p>
-
-            {["firstName", "lastName", "email", "password"].map((field) => (
-              <div key={field} className='input-container'>
-                <label className='labelName'>
-                  <Input
-                    type={field === "password" ? "password" : "text"}
-                    name={field}
-                    placeholder={field.charAt(0).toUpperCase() + field.slice(1)}
-                    onChange={handleChange}
-                    value={formData[field]}
-                  />
-                </label>
-              </div>
-            ))}
-
-            <div>
-              <Button
-                type='submit'
-                label='Create Account'
-                className='bg-[#321e1e] text-white p-2 rounded hover:opacity-50'
-              />
-            </div>
-          </div>
+    <div className='flex items-center justify-center text-center min-h-[75vh] px-6'>
+      <form onSubmit={handleSubmit} className='w-full max-w-md'>
+        <div className='mb-4'>
+          <p className='text-xl font-bold mb-4'>Register</p>
+          <Input
+            type='text'
+            name='firstName'
+            placeholder='First Name'
+            onChange={handleChange}
+            required
+          />
+          <Input
+            type='text'
+            name='lastName'
+            placeholder='Last Name'
+            onChange={handleChange}
+            required
+          />
+          <Input
+            type='text'
+            name='email'
+            placeholder='Email'
+            onChange={handleChange}
+            required
+          />
+          <Input
+            type='password'
+            name='password'
+            placeholder='Password'
+            onChange={handleChange}
+            required
+          />
+          <Button
+            type='submit'
+            label='Create Account'
+            className='rounded-lg bg-[#321e1e] p-2 text-base font-bold text-white border-none cursor-pointer transition duration-200 hover:bg-opacity-50'
+          />
         </div>
       </form>
     </div>

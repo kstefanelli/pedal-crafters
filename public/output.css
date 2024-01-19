@@ -626,6 +626,9 @@ video {
 .w-screen{
   width: 100vw;
 }
+.max-w-md{
+  max-width: 28rem;
+}
 .flex-grow{
   flex-grow: 1;
 }
@@ -1038,9 +1041,9 @@ body,
   opacity: 0.5;
 }
 
-.focus\:border-blue-500:focus{
+.focus\:border-\[\#321e1e\]:focus{
   --tw-border-opacity: 1;
-  border-color: rgb(59 130 246 / var(--tw-border-opacity));
+  border-color: rgb(50 30 30 / var(--tw-border-opacity));
 }
 
 .focus\:outline-none:focus{
@@ -1184,10 +1187,6 @@ body,
 
   .lg\:p-10{
     padding: 2.5rem;
-  }
-
-  .lg\:p-14{
-    padding: 3.5rem;
   }
 
   .lg\:p-20{
