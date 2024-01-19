@@ -1,14 +1,21 @@
-const e = require('express');
 const {
   models: { User },
-} = require('../db');
+} = require("../db");
 
-// store all of our functions that will act as middleware between our request and our response
-// expect 'bad token' when this works
 const requireToken = async (req, res, next) => {
   try {
     const token = req.headers.authorization;
+
+    if (!token) {
+      return res.status(401).send("Unauthorized: Missing token");
+    }
+
     const user = await User.findByToken(token);
+
+    if (!user) {
+      return res.status(401).send("Unauthorized: Invalid token");
+    }
+
     req.user = user;
     next();
   } catch (err) {
@@ -17,10 +24,8 @@ const requireToken = async (req, res, next) => {
 };
 
 const isAdmin = (req, res, next) => {
-  // if we get past requireToken, we can guarentee we are a user
-  // we have access to req.user
   if (!req.user.isAdmin) {
-    return res.status(403).send('You shall not pass!');
+    return res.status(403).send("Forbidden: You shall not pass!");
   } else {
     next();
   }
