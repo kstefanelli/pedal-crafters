@@ -34,17 +34,23 @@ export const createUser = (user, history) => {
 };
 
 export const fetchUsers = () => {
-  return async (dispatch) => {
+  return async (dispatch, getState) => {
     try {
       const token = window.localStorage.getItem("token");
       if (token) {
-        const { data } = await axios.get("/api/users", {
-          headers: {
-            authorization: token,
-          },
-        });
+        const { isAdmin } = getState().auth;
 
-        await dispatch(_setUsers(data));
+        if (isAdmin) {
+          const { data } = await axios.get("/api/users", {
+            headers: {
+              authorization: token,
+            },
+          });
+
+          dispatch(_setUsers(data));
+        } else {
+          console.log("User is not an admin. Skipping fetching users.");
+        }
       } else {
         console.log("Bad token 2");
       }
