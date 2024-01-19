@@ -5,7 +5,7 @@ import { authenticate } from "../store";
 
 const Input = ({ type, name, placeholder, required }) => (
   <input
-    className='w-full p-2 mb-4 border rounded'
+    className='w-full p-2 mb-4 border rounded-lg focus:outline-none focus:border-[#321e1e]'
     type={type}
     name={name}
     placeholder={placeholder}
@@ -14,18 +14,22 @@ const Input = ({ type, name, placeholder, required }) => (
 );
 
 const Button = ({ type, label, className }) => (
-  <button className={`w-full ${className}`} type={type}>
+  <button className={`w-full ${className} focus:outline-none`} type={type}>
     {label}
   </button>
 );
 
 const AuthForm = ({ name, displayName, handleSubmit, error }) => {
   return (
-    <div className='form div-container lg:p-14'>
-      <form onSubmit={handleSubmit} name={name}>
-        <div className='login'>
-          <div className='login-card'>
-            <p className='title'>Sign in</p>
+    <div className='flex items-center text-center justify-center min-h-[75vh] px-6'>
+      <form
+        onSubmit={handleSubmit}
+        name={name}
+        className='flex flex-col items-center'
+      >
+        <div className='flex items-center justify-center'>
+          <div>
+            <p className='text-xl font-bold mb-4'>{displayName}</p>
             <Input name='email' placeholder='Email' required />
             <Input
               name='password'
@@ -35,20 +39,20 @@ const AuthForm = ({ name, displayName, handleSubmit, error }) => {
             />
             <Button
               type='submit'
-              label='Sign in'
-              className='bg-[#321e1e] text-white p-2 rounded hover:opacity-50'
+              label={displayName}
+              className='bg-[#321e1e] text-white p-2 rounded-lg hover:opacity-50'
             />
-            <p className='text'>Don't have an account?</p>
-            <Link to='/register'>
+            <p className='text my-4'>Don't have an account?</p>
+            <Link to={name === "signIn" ? "/register" : "/signin"}>
               <Button
                 type='submit'
-                label='Create new account'
-                className='bg-[#321e1e] text-white p-2 rounded hover:opacity-50'
+                label={name === "signIn" ? "Create new account" : "Sign In"}
+                className='bg-[#321e1e] text-white p-2 rounded-lg hover:opacity-50'
               />
             </Link>
           </div>
         </div>
-        {error && <div className='text-red-500'> {error} </div>}
+        {error && <div className='text-red-500 mt-4'>{error}</div>}
       </form>
     </div>
   );
@@ -56,7 +60,7 @@ const AuthForm = ({ name, displayName, handleSubmit, error }) => {
 
 const mapSignIn = (state) => ({
   name: "signIn",
-  displayName: "SignIn",
+  displayName: "Sign In",
   error: state.auth.error,
 });
 
