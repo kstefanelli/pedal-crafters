@@ -1,15 +1,15 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
-import { authenticate } from "../store";
+import { updateUser, fetchUser } from "../store/singleUser";
 
-const Input = ({ type, name, placeholder, required }) => (
+const Input = ({ type, name, placeholder, value, onChange }) => (
   <input
     className='w-full p-2 mb-4 border rounded-lg focus:outline-none focus:border-[#321e1e]'
     type={type}
     name={name}
     placeholder={placeholder}
-    required={required}
+    value={value}
+    onChange={onChange}
   />
 );
 
@@ -19,66 +19,106 @@ const Button = ({ type, label, className }) => (
   </button>
 );
 
-const AuthForm = ({ name, displayName, handleSubmit, error }) => {
+const UpdateUser = ({ user, fetchUser, updateUser, history }) => {
+  const [userData, setUserData] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
+    address: "",
+  });
+
+  useEffect(() => {
+    fetchUser();
+  }, [fetchUser]);
+
+  useEffect(() => {
+    setUserData({
+      firstName: user.firstName || "",
+      lastName: user.lastName || "",
+      email: user.email || "",
+      password: user.password || "",
+      address: user.address || "",
+    });
+  }, [user]);
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    updateUser({ ...user, ...userData }, history);
+  };
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setUserData({
+      ...userData,
+      [name]: value,
+    });
+  };
+
   return (
-    <div className='flex items-center text-center justify-center min-h-[75vh] px-6'>
-      <form
-        onSubmit={handleSubmit}
-        name={name}
-        className='flex flex-col items-center'
-      >
+    <div className='flex items-center justify-center min-h-[75vh] px-6'>
+      <form onSubmit={handleSubmit} className='flex flex-col items-center'>
         <div className='flex items-center justify-center'>
           <div>
-            <p className='text-xl font-bold mb-4'>{displayName}</p>
-            <Input name='email' placeholder='Email' required />
+            <h1 className='text-xl font-bold mb-4'>Update Information</h1>
+
             <Input
+              type='text'
+              name='firstName'
+              placeholder='First Name'
+              value={userData.firstName}
+              onChange={handleChange}
+            />
+            <Input
+              type='text'
+              name='lastName'
+              placeholder='Last Name'
+              value={userData.lastName}
+              onChange={handleChange}
+            />
+            <Input
+              type='text'
+              name='email'
+              placeholder='Email'
+              value={userData.email}
+              onChange={handleChange}
+            />
+            <Input
+              type='password'
               name='password'
               placeholder='Password'
-              type='password'
-              required
+              value={userData.password}
+              onChange={handleChange}
             />
-            <Button
-              type='submit'
-              label={displayName}
-              className='bg-[#321e1e] text-white p-2 rounded-lg hover:opacity-50 font-bold'
+            <Input
+              type='text'
+              name='address'
+              placeholder='Address'
+              value={userData.address}
+              onChange={handleChange}
             />
-            <p className='text my-4'>Don't have an account?</p>
-            <Link to={name === "signIn" ? "/register" : "/signin"}>
+
+            <div className='mb-4'>
               <Button
                 type='submit'
-                label={name === "signIn" ? "Create new account" : "Sign In"}
-                className='bg-[#321e1e] text-white p-2 rounded-lg hover:opacity-50 font-bold'
+                label='Submit'
+                className='bg-[#321e1e] text-white p-2 rounded-lg focus:outline-none hover:opacity-50 font-bold'
               />
-            </Link>
+            </div>
           </div>
         </div>
-        {error && <div className='text-red-500 mt-4'>{error}</div>}
       </form>
     </div>
   );
 };
 
-const mapSignIn = (state) => ({
-  name: "signIn",
-  displayName: "Sign In",
-  error: state.auth.error,
+const mapStateToProps = (state) => ({
+  user: state.singleUser,
 });
 
-const mapRegister = (state) => ({
-  name: "register",
-  displayName: "Register",
-  error: state.auth.error,
+const mapDispatchToProps = (dispatch) => ({
+  fetchUser: () => dispatch(fetchUser()),
+  updateUser: (user, history) => dispatch(updateUser(user, history)),
 });
 
-const mapDispatch = (dispatch) => ({
-  handleSubmit(evt) {
-    evt.preventDefault();
-    const formName = evt.target.name;
-    const email = evt.target.email.value;
-    const password = evt.target.password.value;
-    dispatch(authenticate(email, password, formName));
-  },
-});
-
-export const SignIn = connect(mapSignIn, mapDispatch)(AuthForm);
-export const Register = connect(mapRegister, mapDispatch)(AuthForm);
+export default connect(mapStateToProps, mapDispatchToProps)(UpdateUser);
