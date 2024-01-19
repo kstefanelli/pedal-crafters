@@ -4,7 +4,7 @@ import { createUser } from "../store/allUsers";
 
 const Input = ({ type, name, placeholder, value, onChange }) => (
   <input
-    className='w-full p-2 mb-4 border rounded focus:outline-none focus:border-blue-500'
+    className='w-full p-2 mb-4 border rounded-lg focus:outline-none focus:border-[#321e1e]'
     type={type}
     name={name}
     placeholder={placeholder}
@@ -15,13 +15,31 @@ const Input = ({ type, name, placeholder, value, onChange }) => (
 );
 
 const Button = ({ onClick, type, label, className }) => (
-  <button
-    className={`w-full ${className} focus:outline-none`}
-    type={type}
-    onClick={onClick}
-  >
+  <button className={`${className}`} type={type} onClick={onClick}>
     {label}
   </button>
+);
+
+const renderInput = (field, value, onChange) => (
+  <div key={field} className='mb-4'>
+    <label className='labelName'>
+      <Input
+        type={field === "password" ? "password" : "text"}
+        name={field}
+        placeholder={
+          field === "firstName"
+            ? "First Name"
+            : field === "lastName"
+            ? "Last Name"
+            : field === "email"
+            ? "Email"
+            : "Password"
+        }
+        onChange={onChange}
+        value={value}
+      />
+    </label>
+  </div>
 );
 
 const CreateUser = ({ createUser, history }) => {
@@ -45,34 +63,21 @@ const CreateUser = ({ createUser, history }) => {
   };
 
   return (
-    <div className='create-form form div-container'>
+    <div className='flex items-center justify-center p-4 min-h-[75vh]'>
       <form onSubmit={handleSubmit}>
-        <div className='form-container signup'>
-          <div className='signup-card'>
-            <p className='title'>Register</p>
+        <div className='flex flex-col items-center p-4'>
+          <p className='text-lg font-bold mb-4'>Register</p>
 
-            {["firstName", "lastName", "email", "password"].map((field) => (
-              <div key={field} className='input-container'>
-                <label className='labelName'>
-                  <Input
-                    type={field === "password" ? "password" : "text"}
-                    name={field}
-                    placeholder={field.charAt(0).toUpperCase() + field.slice(1)}
-                    onChange={handleChange}
-                    value={formData[field]}
-                  />
-                </label>
-              </div>
-            ))}
+          {["firstName", "lastName", "email", "password"].map((field) =>
+            renderInput(field, formData[field], handleChange)
+          )}
+          <Button
+            type='submit'
+            label='Create Account'
+            className='rounded-lg bg-[#321e1e] p-2 w-full text-base font-bold text-white border-none cursor-pointer transition duration-200 hover:bg-opacity-50'
+          />
 
-            <div>
-              <Button
-                type='submit'
-                label='Create Account'
-                className='bg-[#321e1e] text-white p-2 rounded hover:opacity-50'
-              />
-            </div>
-          </div>
+          <div></div>
         </div>
       </form>
     </div>

@@ -1038,9 +1038,9 @@ body,
   opacity: 0.5;
 }
 
-.focus\:border-blue-500:focus{
+.focus\:border-\[\#321e1e\]:focus{
   --tw-border-opacity: 1;
-  border-color: rgb(59 130 246 / var(--tw-border-opacity));
+  border-color: rgb(50 30 30 / var(--tw-border-opacity));
 }
 
 .focus\:outline-none:focus{
