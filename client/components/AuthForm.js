@@ -40,14 +40,14 @@ const AuthForm = ({ name, displayName, handleSubmit, error }) => {
             <Button
               type='submit'
               label={displayName}
-              className='bg-[#321e1e] text-white p-2 rounded-lg hover:opacity-50 font-bold'
+              className='bg-[#321e1e] text-white p-2 rounded-lg hover:opacity-50'
             />
             <p className='text my-4'>Don't have an account?</p>
             <Link to={name === "signIn" ? "/register" : "/signin"}>
               <Button
                 type='submit'
                 label={name === "signIn" ? "Create new account" : "Sign In"}
-                className='bg-[#321e1e] text-white p-2 rounded-lg hover:opacity-50 font-bold'
+                className='bg-[#321e1e] text-white p-2 rounded-lg hover:opacity-50'
               />
             </Link>
           </div>

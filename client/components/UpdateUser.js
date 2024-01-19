@@ -2,6 +2,28 @@ import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { updateUser, fetchUser } from "../store/singleUser";
 
+const Input = ({ type, name, label, placeholder, value, onChange }) => (
+  <div className='mb-4'>
+    <div className='mb-2'>
+      <label className='text-xl'>{label}</label>
+    </div>
+    <input
+      className='w-full p-2 border rounded-lg focus:outline-none focus:border-[#321e1e]'
+      type={type}
+      name={name}
+      placeholder={placeholder}
+      value={value}
+      onChange={onChange}
+    />
+  </div>
+);
+
+const Button = ({ type, label, className }) => (
+  <button className={`w-full ${className} focus:outline-none`} type={type}>
+    {label}
+  </button>
+);
+
 const UpdateUser = ({ user, fetchUser, updateUser, history }) => {
   const [userData, setUserData] = useState({
     firstName: "",
@@ -31,43 +53,62 @@ const UpdateUser = ({ user, fetchUser, updateUser, history }) => {
   };
 
   const handleChange = (event) => {
+    const { name, value } = event.target;
     setUserData({
       ...userData,
-      [event.target.name]: event.target.value,
+      [name]: value,
     });
   };
 
-  const renderInput = (name) => (
-    <div className='product-info-div' key={name}>
-      <div className='product-info-name'>
-        <p className='productName'>
-          {name.charAt(0).toUpperCase() + name.slice(1)}
-        </p>
-      </div>
-      <div className='product-info-input'>
-        <input
-          className='product-info-input'
-          type={name === "password" ? "password" : "text"}
-          name={name}
-          onChange={handleChange}
-          value={userData[name]}
-        />
-      </div>
-    </div>
-  );
+  const inputFields = [
+    {
+      name: "firstName",
+      label: "First Name",
+      placeholder: "First Name",
+      type: "text",
+    },
+    {
+      name: "lastName",
+      label: "Last Name",
+      placeholder: "Last Name",
+      type: "text",
+    },
+    { name: "email", label: "Email", placeholder: "Email", type: "text" },
+    {
+      name: "password",
+      label: "Password",
+      placeholder: "Password",
+      type: "password",
+    },
+    { name: "address", label: "Address", placeholder: "Address", type: "text" },
+  ];
 
   return (
-    <div className='add-product-form '>
-      <form onSubmit={handleSubmit} className='add-form-input'>
-        <div className='form update'>
-          <h1 style={{ textAlign: "center" }}>Update Information</h1>
+    <div className='min-h-screen md:min-h-[75vh] flex items-center justify-center px-5'>
+      <form onSubmit={handleSubmit} className='max-w-md w-full'>
+        <div>
+          <h1 className='text-xl font-bold mb-4 text-center'>
+            Update Information
+          </h1>
 
-          {["firstName", "lastName", "email", "password", "address"].map(
-            renderInput
-          )}
+          {inputFields.map((field) => (
+            <Input
+              key={field.name}
+              type={field.type}
+              name={field.name}
+              label={field.label}
+              placeholder={field.placeholder}
+              value={userData[field.name]}
+              onChange={handleChange}
+            />
+          ))}
 
-          <div className='update-btns'>
-            <button type='submit'>Submit</button>
+          <div className='mb-4'>
+            <Button
+              type='submit'
+              label='Submit'
+              className='bg-[#321e1e] text-white p-2 rounded-lg focus:outline-none hover:opacity-50 font-bold'
+            />
           </div>
         </div>
       </form>

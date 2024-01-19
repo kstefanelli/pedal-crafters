@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 const inputStyles =
-  "rounded-lg m-2 mx-auto px-15 h-11 w-72 bg-gray-200 pl-2 outline-none border border-transparent text-sm lg:text-base transition duration-200";
+  "rounded-lg m-2 mx-auto px-15 h-11 w-72 bg-white pl-2 outline-none border border-transparent text-sm lg:text-base transition duration-200";
 
 const buttonStyles =
   "rounded-lg bg-[#321e1e] h-11 w-72 text-base font-bold text-white border-none cursor-pointer transition duration-200 hover:bg-opacity-50";

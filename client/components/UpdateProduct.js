@@ -15,18 +15,18 @@ const InputField = ({
 }) => {
   const renderOptions = (options) => {
     return options.map((option) => (
-      <option key={option} value={option}>
-        {option}
+      <option key={option} value={option.toLowerCase()}>
+        {option.charAt(0).toUpperCase() + option.slice(1)}
       </option>
     ));
   };
 
   return (
-    <div className='product-info-div'>
-      <div className='product-info-name'>
-        <span htmlFor={`product${name}`}>{label}</span>
+    <div className='mb-4'>
+      <div className='mb-2'>
+        <label className='text-xl'>{label}</label>
       </div>
-      <div className='product-info-input'>
+      <div className='w-full'>
         {type === "textarea" ? (
           <textarea
             name={name}
@@ -35,17 +35,23 @@ const InputField = ({
             required={required}
             onInvalid={onInvalid}
             onInput={(e) => e.target.setCustomValidity("")}
+            className='w-full p-2 h-32 bg-white border rounded-lg focus:outline-none focus:border-[#321e1e]'
           />
         ) : type === "select" ? (
           <select
             onChange={handleChange}
             name={name}
-            className='category-list'
+            className='w-full p-2 border rounded-lg focus:outline-none focus:border-[#321e1e]'
             value={value}
           >
-            {name === "category"
-              ? renderOptions(["", "track", "tracklocross", "gravel", "road"])
-              : null}
+            {name === "category" ? (
+              <>
+                <option value='' disabled>
+                  Choose a category:
+                </option>
+                {renderOptions(["track", "tracklocross", "gravel", "road"])}
+              </>
+            ) : null}
           </select>
         ) : (
           <input
@@ -56,6 +62,7 @@ const InputField = ({
             required={required}
             onInvalid={onInvalid}
             onInput={(e) => e.target.setCustomValidity("")}
+            className='w-full p-2 border rounded-lg focus:outline-none focus:border-[#321e1e]'
           />
         )}
       </div>
@@ -96,6 +103,14 @@ const UpdateProduct = ({
     }
   }, [product, productInfo.id]);
 
+  const labels = [
+    { label: "Product Name", name: "name", type: "text" },
+    { label: "Image URL", name: "imageURL", type: "text" },
+    { label: "Price", name: "price", type: "number" },
+    { label: "Description", name: "description", type: "textarea" },
+    { label: "Category", name: "category", type: "select" },
+  ];
+
   const handleChange = (event) => {
     setProductInfo({
       ...productInfo,
@@ -113,18 +128,14 @@ const UpdateProduct = ({
   };
 
   return (
-    <div className='add-product-form '>
-      <form className='add-form-input' onSubmit={handleSubmit}>
-        <div className='form update'>
-          <h1 style={{ textAlign: "center" }}>Update Product</h1>
+    <div className='min-h-screen md:min-h-[75vh] flex items-center justify-center px-5'>
+      <form onSubmit={handleSubmit} className='max-w-md w-full'>
+        <div>
+          <h1 className='text-2xl font-bold mb-4 text-center'>
+            Update Product
+          </h1>
 
-          {[
-            { label: "Product Name", name: "name", type: "text" },
-            { label: "Picture", name: "imageURL", type: "text" },
-            { label: "Price", name: "price", type: "number" },
-            { label: "Description", name: "description", type: "textarea" },
-            { label: "Category", name: "category", type: "select" },
-          ].map((input) => (
+          {labels.map((input) => (
             <InputField
               key={input.name}
               label={input.label}
@@ -142,17 +153,29 @@ const UpdateProduct = ({
             />
           ))}
 
-          <div className='update-btns'>
-            <button type='submit'>Update</button>
-            <button type='button' onClick={handleDelete}>
+          <div className='flex items-center justify-between mt-6'>
+            <button
+              type='submit'
+              className='bg-[#321e1e] text-white p-2 rounded-lg w-full focus:outline-none hover:opacity-70 font-bold'
+            >
+              Update
+            </button>
+            <button
+              type='button'
+              onClick={handleDelete}
+              className='bg-[#321e1e] text-white p-2 rounded-lg w-full ml-4 focus:outline-none hover:opacity-70 font-bold'
+            >
               Delete
             </button>
-            <Link to='/admin/products'>
-              <button type='button' className='buttonShadow'>
-                Cancel
-              </button>
-            </Link>
           </div>
+          <Link to='/admin/products'>
+            <button
+              type='button'
+              className='bg-[#321e1e] text-white p-2 rounded-lg w-full mt-4 focus:outline-none hover:opacity-70 font-bold'
+            >
+              Cancel
+            </button>
+          </Link>
         </div>
       </form>
     </div>
