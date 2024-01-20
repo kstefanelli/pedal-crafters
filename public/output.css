@@ -560,9 +560,6 @@ video {
 .mb-4{
   margin-bottom: 1rem;
 }
-.ml-2{
-  margin-left: 0.5rem;
-}
 .ml-4{
   margin-left: 1rem;
 }
@@ -619,9 +616,6 @@ video {
 }
 .w-24{
   width: 6rem;
-}
-.w-32{
-  width: 8rem;
 }
 .w-5\/6{
   width: 83.333333%;
@@ -741,6 +735,9 @@ video {
 .border{
   border-width: 1px;
 }
+.border-2{
+  border-width: 2px;
+}
 .border-4{
   border-width: 4px;
 }
@@ -754,6 +751,10 @@ video {
   border-style: none;
 }
 .border-\[\#321E1E\]{
+  --tw-border-opacity: 1;
+  border-color: rgb(50 30 30 / var(--tw-border-opacity));
+}
+.border-\[\#321e1e\]{
   --tw-border-opacity: 1;
   border-color: rgb(50 30 30 / var(--tw-border-opacity));
 }

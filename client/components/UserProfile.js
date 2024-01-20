@@ -2,46 +2,127 @@ import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { fetchUser } from "../store/singleUser";
 import { logout } from "../store";
-import OrderHistory from "./OrderHistory";
 import { Link } from "react-router-dom";
 
-const UserProfile = ({ firstName, getUser, handleLogout }) => {
+const UserProfile = ({ firstName, isAdmin, user, getUser, handleLogout }) => {
   useEffect(() => {
     getUser();
   }, [getUser]);
 
-  return (
-    <div className='flex flex-col items-center py-8 px-4 lg:px-6 xl:p-12'>
-      <div className='text-center'>
-        <h2 className='text-2xl font-bold mb-4'>Welcome {firstName}!</h2>
-        <div className='flex justify-center text-sm'>
-          <Link to='/profile/update'>
-            <button
-              type='button'
-              className='bg-[#321e1e] text-white hover:opacity-50 px-4 py-2 rounded-md w-32 h-10'
-            >
-              Edit Profile
-            </button>
-          </Link>
+  const profileLabels = ["First Name", "Last Name", "Email", "Address"];
+  const userInfo = ["firstName", "lastName", "email", "address"];
 
-          <button
-            type='button'
-            className='bg-[#321e1e] text-white hover:opacity-50 px-4 py-2 rounded-md ml-2 w-32 h-10'
-            onClick={handleLogout}
-          >
-            Logout
-          </button>
-        </div>
-        <div>
-          <OrderHistory />
+  return (
+    <>
+      <div className='flex flex-col items-center py-2 px-4 lg:px-6 xl:px-12 min-h-[75vh] justify-center'>
+        <div className='text-center'>
+          <h2 className='text-2xl font-bold mb-4'>Welcome {firstName}!</h2>
+
+          <div className='mt-6 flex flex-col items-center'>
+            <div className='text-center'>
+              {profileLabels.map((profileLabel, index) => (
+                <div
+                  className='grid grid-cols-2 justify-center gap-2 text-start items-center text-xl'
+                  key={index}
+                >
+                  <p className='font-bold'>{profileLabel}:</p>
+                  <p>{user[userInfo[index]]}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {isAdmin ? (
+            <>
+              <div className='grid grid-cols-2 justify-center mt-6 gap-2 w-full'>
+                <Link to='/users/orders'>
+                  <button
+                    type='button'
+                    className='bg-[#321e1e] text-white p-2 rounded-lg w-full focus:outline-none hover:opacity-70 font-bold'
+                  >
+                    Order History
+                  </button>
+                </Link>
+                <Link to='/profile/update'>
+                  <button
+                    type='button'
+                    className='bg-[#321e1e] text-white p-2 rounded-lg w-full focus:outline-none hover:opacity-70 font-bold'
+                  >
+                    Edit Profile
+                  </button>
+                </Link>
+                <Link to='/admin/users'>
+                  <button
+                    type='button'
+                    className='bg-[#321e1e] text-white p-2 rounded-lg w-full focus:outline-none hover:opacity-70 font-bold'
+                  >
+                    View All Users
+                  </button>
+                </Link>
+                <Link to='/admin/products'>
+                  <button
+                    type='button'
+                    className='bg-[#321e1e] text-white p-2 rounded-lg w-full focus:outline-none hover:opacity-70 font-bold'
+                  >
+                    Edit Products
+                  </button>
+                </Link>
+                <Link to='/products/add'>
+                  <button
+                    type='button'
+                    className='bg-[#321e1e] text-white p-2 rounded-lg w-full focus:outline-none hover:opacity-70 font-bold'
+                  >
+                    Add Product
+                  </button>
+                </Link>
+                <button
+                  type='button'
+                  className='bg-[#321e1e] text-white p-2 rounded-lg w-full focus:outline-none hover:opacity-70 font-bold'
+                  onClick={handleLogout}
+                >
+                  Logout
+                </button>
+              </div>
+            </>
+          ) : (
+            <>
+              <div className='grid grid-cols-2 justify-center mt-6 gap-2 w-full'>
+                <Link to='/users/orders'>
+                  <button
+                    type='button'
+                    className='bg-[#321e1e] text-white p-2 rounded-lg w-full focus:outline-none hover:opacity-70 font-bold'
+                  >
+                    Order History
+                  </button>
+                </Link>
+                <Link to='/profile/update'>
+                  <button
+                    type='button'
+                    className='bg-[#321e1e] text-white p-2 rounded-lg w-full focus:outline-none hover:opacity-70 font-bold'
+                  >
+                    Edit Profile
+                  </button>
+                </Link>
+              </div>
+              <button
+                type='button'
+                className='bg-[#321e1e] text-white p-2 rounded-lg w-full mt-4 focus:outline-none hover:opacity-70 font-bold'
+                onClick={handleLogout}
+              >
+                Logout
+              </button>
+            </>
+          )}
         </div>
       </div>
-    </div>
+    </>
   );
 };
 
 const mapStateToProps = (state) => ({
   firstName: state.auth.firstName,
+  isAdmin: !!state.auth.isAdmin,
+  user: state.singleUser,
 });
 
 const mapDispatchToProps = {

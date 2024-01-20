@@ -6,8 +6,8 @@ const OrderHistory = () => {
   const orders = useOrderFetching();
 
   return (
-    <div>
-      <h3 className='text-xl font-bold text-center py-5 xl:py-10 border-b mb-4'>
+    <div className='flex flex-col items-center py-8 px-4 lg:px-6 xl:p-12'>
+      <h3 className='text-xl md:text-2xl font-bold text-center py-5 xl:py-10 border-b mb-4'>
         Order History
       </h3>
       {orders && orders.length !== 0 ? (

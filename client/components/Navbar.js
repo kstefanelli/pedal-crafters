@@ -43,7 +43,7 @@ const CustomLink = ({
   );
 };
 
-const Navbar = ({ isLoggedIn, isAdmin, cart, fetchCart }) => {
+const Navbar = ({ isLoggedIn, cart, fetchCart }) => {
   const [selectedPage, setSelectedPage] = useState("Home");
   const [isMenuToggled, setIsMenuToggled] = useState(false);
   const isDesktop = useMediaQuery("(min-width: 1024px)");
@@ -64,11 +64,8 @@ const Navbar = ({ isLoggedIn, isAdmin, cart, fetchCart }) => {
       show: true,
     },
   ];
-
-  const adminItems = [{ path: "/admin", label: "ADMIN", show: isAdmin }];
   const navItems = [
-    ...commonItems.filter((item) => item.show),
-    ...adminItems.filter((item) => item.show),
+    ...commonItems.filter((item) => item.show)
   ];
 
   useEffect(() => {
@@ -82,11 +79,11 @@ const Navbar = ({ isLoggedIn, isAdmin, cart, fetchCart }) => {
       cart: "Cart - Pedal Crafters",
       checkout: "Checkout - Pedal Crafters",
       orderSuccess: "Order Success - Pedal Crafters",
-      admin: "Admin - Pedal Crafters",
       "admin/products": "Edit Products - Pedal Crafters",
       "admin/users": "Users - Pedal Crafters",
       profile: "Profile - Pedal Crafters",
       "profile/update": "Update Profile - Pedal Crafters",
+      "users/orders": "Order History - Pedal Crafters",
       signin: "Sign in - Pedal Crafters",
       register: "Register - Pedal Crafters",
     };
@@ -215,7 +212,6 @@ const Navbar = ({ isLoggedIn, isAdmin, cart, fetchCart }) => {
 const mapStateToProps = (state) => {
   return {
     isLoggedIn: !!state.auth.id,
-    isAdmin: !!state.auth.isAdmin,
     cart: state.cart,
   };
 };

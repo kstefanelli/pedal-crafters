@@ -44,7 +44,6 @@ const Routes = ({ isLoggedIn, isAdmin, loadInitialData }) => {
     <div>
       {isLoggedIn ? (
         <Switch>
-          {isAdmin && <Route exact path='/admin' component={Admin} />}
           {isAdmin && (
             <Route exact path='/admin/users' component={AdminUsers} />
           )}
