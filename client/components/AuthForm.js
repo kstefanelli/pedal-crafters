@@ -1,17 +1,37 @@
-import React from "react";
+import React, { useState } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { authenticate } from "../store";
 
-const Input = ({ type, name, placeholder, required }) => (
-  <input
-    className='w-full p-2 mb-4 border rounded-lg focus:outline-none focus:border-[#321e1e]'
-    type={type}
-    name={name}
-    placeholder={placeholder}
-    required={required}
-  />
-);
+const Input = ({ type, name, placeholder, required }) => {
+  const [showPassword, setShowPassword] = useState(false);
+
+  const togglePasswordVisibility = () => {
+    setShowPassword((prev) => !prev);
+  };
+
+  return (
+    <>
+      <input
+        className='w-full p-2 mb-4 border rounded-lg focus:outline-none focus:border-[#321e1e]'
+        type={showPassword ? "text" : type}
+        name={name}
+        placeholder={placeholder}
+        required={required}
+      />
+      {type === "password" && (
+        <div className='flex items-center'>
+          <input
+            type='checkbox'
+            onChange={togglePasswordVisibility}
+            className='mx-2 mb-4 cursor-pointer'
+          />
+          <p className='mb-4'> Show Password </p>
+        </div>
+      )}
+    </>
+  );
+};
 
 const Button = ({ type, label, className }) => (
   <button className={`w-full ${className} focus:outline-none`} type={type}>
@@ -25,12 +45,12 @@ const AuthForm = ({ name, displayName, handleSubmit, error }) => {
       <form
         onSubmit={handleSubmit}
         name={name}
-        className='flex flex-col items-center'
+        className='flex flex-col items-center max-w-md'
       >
         <div className='flex items-center justify-center'>
           <div>
             <p className='text-xl font-bold mb-4'>{displayName}</p>
-            <Input name='email' placeholder='Email' required />
+            <Input name='email' placeholder='Email' type='text' required />
             <Input
               name='password'
               placeholder='Password'
@@ -46,7 +66,7 @@ const AuthForm = ({ name, displayName, handleSubmit, error }) => {
             <Link to={name === "signIn" ? "/register" : "/signin"}>
               <Button
                 type='submit'
-                label={name === "signIn" ? "Create new account" : "Sign In"}
+                label={name === "signIn" ? "Create New Account" : "Sign In"}
                 className='bg-[#321e1e] text-white p-2 rounded-lg hover:opacity-50'
               />
             </Link>

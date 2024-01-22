@@ -80,7 +80,7 @@ const CreateUser = ({ createUser, history }) => {
             <Button
               type='submit'
               label='Create Account'
-              className='rounded-lg bg-[#321e1e] p-2 w-full text-base font-bold text-white border-none cursor-pointer transition duration-200 hover:bg-opacity-50'
+              className='bg-[#321e1e] text-white p-2 rounded-lg hover:opacity-50'
             />
           </div>
         </div>
