@@ -37,7 +37,7 @@ const AdminShop = ({ products, getProducts, addToCart }) => {
           />
         </div>
 
-        <div className='grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-2 xl:gap-8 col-span-2 xl:col-span-3'>
+        <div className='grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-4 xl:gap-8 col-span-2 xl:col-span-3'>
           {productFilter.map((product) =>
             product.name.toLowerCase().includes(term.toLowerCase()) ? (
               <ProductItem
