@@ -1,17 +1,37 @@
-import React from "react";
+import React, { useState } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { authenticate } from "../store";
 
-const Input = ({ type, name, placeholder, required }) => (
-  <input
-    className='w-full p-2 mb-4 border rounded-lg focus:outline-none focus:border-[#321e1e]'
-    type={type}
-    name={name}
-    placeholder={placeholder}
-    required={required}
-  />
-);
+const Input = ({ type, name, placeholder, required }) => {
+  const [showPassword, setShowPassword] = useState(false);
+
+  const togglePasswordVisibility = () => {
+    setShowPassword((prev) => !prev);
+  };
+
+  return (
+    <>
+      <input
+        className='w-full p-2 mb-4 border rounded-lg focus:outline-none focus:border-[#321e1e]'
+        type={showPassword ? "text" : type}
+        name={name}
+        placeholder={placeholder}
+        required={required}
+      />
+      {type === "password" && (
+        <div className='flex items-center'>
+          <input
+            type='checkbox'
+            onChange={togglePasswordVisibility}
+            className='mx-2 mb-4 cursor-pointer'
+          />
+          <p className='mb-4'> Show Password </p>
+        </div>
+      )}
+    </>
+  );
+};
 
 const Button = ({ type, label, className }) => (
   <button className={`w-full ${className} focus:outline-none`} type={type}>
