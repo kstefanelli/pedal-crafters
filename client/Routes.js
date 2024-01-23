@@ -6,7 +6,6 @@ import Home from "./components/Home";
 import { me } from "./store";
 import Products from "./components/Products";
 import Cart from "./components/Cart";
-import Admin from "./components/Admin";
 import SingleProduct from "./components/SingleProduct";
 import OrderHistory from "./components/OrderHistory";
 import UserProfile from "./components/UserProfile";
@@ -19,6 +18,8 @@ import OrderSuccess from "./components/OrderSuccess";
 import Checkout from "./components/Checkout";
 import AdminUsers from "./components/AdminUsers";
 import AdminShop from "./components/AdminShop";
+import Contact from "./components/Contact";
+import Thankyou from "./components/Thankyou";
 
 const Routes = ({ isLoggedIn, isAdmin, loadInitialData }) => {
   useEffect(() => {
@@ -36,6 +37,8 @@ const Routes = ({ isLoggedIn, isAdmin, loadInitialData }) => {
       <Route path='/profile' component={UserProfile} />
       <Route path='/profile/update' component={UpdateUser} />
       <Route path='/users/orders' component={OrderHistory} />
+      <Route path='/contact' component={Contact} />
+      <Route path='/thankyou' component={Thankyou} />
       <Route path='*' component={NotFoundPage} status={404} />
     </Switch>
   );

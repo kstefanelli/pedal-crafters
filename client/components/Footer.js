@@ -5,7 +5,7 @@ const Footer = () => (
     <div className='flex flex-col lg:flex-row items-center justify-center bg-[#f4f1e0] pt-8 md:pb-8 lg:px-10 md:px-7'>
       <ul className='w-full lg:text-center lg:items-center justify-center flex flex-col md:flex-row text-2xl lg:text-xl gap-2 lg:gap-4 text-start border-t border-[#321E1E] md:border-none pt-2 lg:pt-0'>
         {[
-          { link: "https://kristinastefanelli.com", text: "CONTACT" },
+          { link: "/contact", text: "CONTACT" },
           { link: "https://github.com/kstefanelli", text: "GITHUB" },
           { link: "", text: "FAQS" },
           { link: "", text: "PRIVACY POLICY" },

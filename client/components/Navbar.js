@@ -86,6 +86,8 @@ const Navbar = ({ isLoggedIn, cart, fetchCart }) => {
       "users/orders": "Order History - Pedal Crafters",
       signin: "Sign in - Pedal Crafters",
       register: "Register - Pedal Crafters",
+      contact: "Contact - Pedal Crafters",
+      thankyou: "Thank you - Pedal Crafters"
     };
 
     const isProductRoute = pathname.match(/^\/products\/\d+(\/update)?$/);
