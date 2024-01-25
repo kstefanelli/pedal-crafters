@@ -8,7 +8,7 @@ const Footer = () => (
           { link: "https://kristinastefanelli.com", text: "CONTACT" },
           { link: "https://github.com/kstefanelli", text: "GITHUB" },
           { link: "", text: "FAQS" },
-          { link: "", text: "PRIVACY POLICY" },
+          { link: "/privacy-policy", text: "PRIVACY POLICY" },
           { link: "", text: "TERMS OF SERVICE" },
         ].map((item, index) => (
           <li
