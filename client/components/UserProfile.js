@@ -35,6 +35,14 @@ const UserProfile = ({ firstName, isAdmin, user, getUser, handleLogout }) => {
           {isAdmin ? (
             <>
               <div className='grid grid-cols-2 justify-center mt-6 gap-2 w-full'>
+                <Link to='/wishlist'>
+                  <button
+                    type='button'
+                    className='bg-[#321e1e] text-white p-2 rounded-lg w-full focus:outline-none hover:opacity-70 font-bold'
+                  >
+                    Wishlist
+                  </button>
+                </Link>
                 <Link to='/users/orders'>
                   <button
                     type='button'
@@ -75,18 +83,26 @@ const UserProfile = ({ firstName, isAdmin, user, getUser, handleLogout }) => {
                     Add Product
                   </button>
                 </Link>
-                <button
-                  type='button'
-                  className='bg-[#321e1e] text-white p-2 rounded-lg w-full focus:outline-none hover:opacity-70 font-bold'
-                  onClick={handleLogout}
-                >
-                  Logout
-                </button>
               </div>
+              <button
+                type='button'
+                className='bg-[#321e1e] text-white p-2 rounded-lg w-full focus:outline-none hover:opacity-70 font-bold mt-4'
+                onClick={handleLogout}
+              >
+                Logout
+              </button>
             </>
           ) : (
             <>
               <div className='grid grid-cols-2 justify-center mt-6 gap-2 w-full'>
+                <Link to='/wishlist'>
+                  <button
+                    type='button'
+                    className='bg-[#321e1e] text-white p-2 rounded-lg w-full focus:outline-none hover:opacity-70 font-bold'
+                  >
+                    Wishlist
+                  </button>
+                </Link>
                 <Link to='/users/orders'>
                   <button
                     type='button'
@@ -103,14 +119,14 @@ const UserProfile = ({ firstName, isAdmin, user, getUser, handleLogout }) => {
                     Edit Profile
                   </button>
                 </Link>
+                <button
+                  type='button'
+                  className='bg-[#321e1e] text-white p-2 rounded-lg w-full focus:outline-none hover:opacity-70 font-bold'
+                  onClick={handleLogout}
+                >
+                  Logout
+                </button>
               </div>
-              <button
-                type='button'
-                className='bg-[#321e1e] text-white p-2 rounded-lg w-full mt-4 focus:outline-none hover:opacity-70 font-bold'
-                onClick={handleLogout}
-              >
-                Logout
-              </button>
             </>
           )}
         </div>

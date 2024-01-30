@@ -19,6 +19,7 @@ import OrderSuccess from "./components/OrderSuccess";
 import Checkout from "./components/Checkout";
 import AdminUsers from "./components/AdminUsers";
 import AdminShop from "./components/AdminShop";
+import Wishlist from "./components/Wishlist";
 
 const Routes = ({ isLoggedIn, isAdmin, loadInitialData }) => {
   useEffect(() => {
@@ -36,6 +37,7 @@ const Routes = ({ isLoggedIn, isAdmin, loadInitialData }) => {
       <Route path='/profile' component={UserProfile} />
       <Route path='/profile/update' component={UpdateUser} />
       <Route path='/users/orders' component={OrderHistory} />
+      <Route path='/wishlist' component={Wishlist} />
       <Route path='*' component={NotFoundPage} status={404} />
     </Switch>
   );

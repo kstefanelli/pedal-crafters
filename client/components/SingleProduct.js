@@ -2,15 +2,27 @@ import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { fetchProduct } from "../store/singleProduct";
 import { addToCart } from "../store/cart";
+import { addToWishlist } from "../store/wishlist";
 import { Link } from "react-router-dom";
 
-const SingleProduct = ({ product, getSingleProduct, addToCart, match }) => {
+const SingleProduct = ({
+  product,
+  getSingleProduct,
+  addToCart,
+  addToWishlist,
+  match,
+  isLoggedIn,
+}) => {
   useEffect(() => {
     getSingleProduct(match.params.id);
   }, [getSingleProduct, match.params.id]);
 
   const handleAdd = () => {
     addToCart(product);
+  };
+
+  const handleAddToWishlist = () => {
+    addToWishlist(product.id);
   };
 
   const renderProductDetails = () => (
@@ -40,6 +52,15 @@ const SingleProduct = ({ product, getSingleProduct, addToCart, match }) => {
           >
             Add to cart
           </button>
+
+          {isLoggedIn && (
+            <button
+              className='bg-[#321e1e] hover:opacity-50 text-white text-sm font-bold py-2 px-4 rounded'
+              onClick={handleAddToWishlist}
+            >
+              Add to wishlist
+            </button>
+          )}
         </div>
       </div>
     </div>
@@ -63,11 +84,13 @@ const SingleProduct = ({ product, getSingleProduct, addToCart, match }) => {
 
 const mapStateToProps = (state) => ({
   product: state.singleProduct,
+  isLoggedIn: !!state.auth.id,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   getSingleProduct: (id) => dispatch(fetchProduct(id)),
   addToCart: (product) => dispatch(addToCart(product)),
+  addToWishlist: (id) => dispatch(addToWishlist(id)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SingleProduct);

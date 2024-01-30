@@ -64,9 +64,7 @@ const Navbar = ({ isLoggedIn, cart, fetchCart }) => {
       show: true,
     },
   ];
-  const navItems = [
-    ...commonItems.filter((item) => item.show)
-  ];
+  const navItems = [...commonItems.filter((item) => item.show)];
 
   useEffect(() => {
     const pathname = location.pathname;
@@ -86,6 +84,7 @@ const Navbar = ({ isLoggedIn, cart, fetchCart }) => {
       "users/orders": "Order History - Pedal Crafters",
       signin: "Sign in - Pedal Crafters",
       register: "Register - Pedal Crafters",
+      wishlist: "Wishlist - Pedal Crafters",
     };
 
     const isProductRoute = pathname.match(/^\/products\/\d+(\/update)?$/);
