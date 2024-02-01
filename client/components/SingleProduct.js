@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { fetchProduct } from "../store/singleProduct";
 import { addToCart } from "../store/cart";
+import { addToWishlist } from "../store/wishlist";
 import { Link } from "react-router-dom";
 
 const SingleProduct = ({ product, getSingleProduct, addToCart, match }) => {
@@ -11,6 +12,10 @@ const SingleProduct = ({ product, getSingleProduct, addToCart, match }) => {
 
   const handleAdd = () => {
     addToCart(product);
+  };
+
+  const handleAddToWishlist = () => {
+    addToWishlist(product);
   };
 
   const renderProductDetails = () => (
@@ -40,6 +45,12 @@ const SingleProduct = ({ product, getSingleProduct, addToCart, match }) => {
           >
             Add to cart
           </button>
+          <button
+            className='bg-[#321e1e] hover:opacity-50 text-white text-sm font-bold py-2 px-4 rounded'
+            onClick={handleAddToWishlist}
+          >
+            Add to wishlist
+          </button>
         </div>
       </div>
     </div>
@@ -68,6 +79,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   getSingleProduct: (id) => dispatch(fetchProduct(id)),
   addToCart: (product) => dispatch(addToCart(product)),
+  addToWishlist: (product) => dispatch(addToWishlist(product)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SingleProduct);

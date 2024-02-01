@@ -2,7 +2,7 @@
 
 const {
   db,
-  models: { User, Product, CartItem, Order },
+  models: { User, Product, CartItem, Order, WishlistItem },
 } = require("../server/db");
 
 const products = [
@@ -44,23 +44,27 @@ const products = [
   },
   {
     name: "EARTHSTONE - CORE-LINE",
-    imageURL: "https://shop.gear.com/cdn/shop/files/StateBicycleCo.-Earthstone-Core-Line-2.jpg?v=1699996327&width=1000",
+    imageURL:
+      "https://shop.gear.com/cdn/shop/files/StateBicycleCo.-Earthstone-Core-Line-2.jpg?v=1699996327&width=1000",
     price: 399,
-    description: "Our Core-Line fixed gear and single speed bicycles are what we're best known for. Built on a durable steel frame with seat stay rack mounts, eyelet mounts on the fork and cable stops, the Core Line models are as stylish as they are versatile. Quality components, a flip-flop hub that will allow you to ride fixed gear or freewheel and Cult x Vans ‘waffle pattern” grips will keep you comfortable and riding hassle-free for years to come.",
+    description:
+      "Our Core-Line fixed gear and single speed bicycles are what we're best known for. Built on a durable steel frame with seat stay rack mounts, eyelet mounts on the fork and cable stops, the Core Line models are as stylish as they are versatile. Quality components, a flip-flop hub that will allow you to ride fixed gear or freewheel and Cult x Vans ‘waffle pattern” grips will keep you comfortable and riding hassle-free for years to come.",
     category: "tracklocross",
   },
   {
     name: "MIYATA",
     imageURL: "https://tracklocross.com/images/miyata-tracklocross.jpg",
     price: 499,
-    description: "Unleash the spirit of the 1980s with the MIYATA Tracklocross bike, a vintage-inspired two-wheeler that seamlessly blends style and performance. This tracklocross gem is a testament to MIYATA's timeless design and commitment to quality craftsmanship.",
+    description:
+      "Unleash the spirit of the 1980s with the MIYATA Tracklocross bike, a vintage-inspired two-wheeler that seamlessly blends style and performance. This tracklocross gem is a testament to MIYATA's timeless design and commitment to quality craftsmanship.",
     category: "tracklocross",
   },
   {
     name: "BIANCHI CAMPIONE D'ITALIA",
     imageURL: "https://tracklocross.com/images/bianchi-tracklocross.jpg",
     price: 699,
-    description: "Experience the heritage of Italian cycling excellence with the 1988 Bianchi Campione d'Italia Tracklocross bike. A masterpiece from the renowned Bianchi stable, this bike seamlessly combines classic aesthetics with cutting-edge performance for the modern tracklocross adventurer.",
+    description:
+      "Experience the heritage of Italian cycling excellence with the 1988 Bianchi Campione d'Italia Tracklocross bike. A masterpiece from the renowned Bianchi stable, this bike seamlessly combines classic aesthetics with cutting-edge performance for the modern tracklocross adventurer.",
     category: "tracklocross",
   },
 ];
@@ -117,6 +121,28 @@ const seed = async () => {
     // user1 orders
     await order3.addProducts(Object.values(bikeProducts).slice(2, 3)); // open
     await order4.addProducts(Object.values(bikeProducts).slice(0, 6)); // closed
+
+    // Create wishlist items
+    const adminWishlistItems = [];
+    const bikeaddictWishlistItems = [];
+
+    for (let i = 1; i <= 2; i++) {
+      adminWishlistItems.push(
+        WishlistItem.create({
+          userId: admin.id,
+          productId: bikeProducts[`bike${i}`].id,
+        })
+      );
+
+      bikeaddictWishlistItems.push(
+        WishlistItem.create({
+          userId: bikeaddict.id,
+          productId: bikeProducts[`bike${i + 2}`].id,
+        })
+      );
+    }
+
+    await Promise.all([...adminWishlistItems, ...bikeaddictWishlistItems]);
   } catch (err) {
     console.log(err);
   }
