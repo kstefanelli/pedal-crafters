@@ -1,15 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { connect } from "react-redux";
-import { logout } from "../store";
-import { fetchCart } from "../store/cart";
-import useMediaQuery from "../hooks/useMediaQuery";
+import { logout } from "../../store/auth";
+import { fetchCart } from "../../store/cart";
+import useMediaQuery from "../../hooks/useMediaQuery";
+import { titleMap } from "../../utility/titleMap";
+import { getNavbarConfig } from "../../config/NavbarConfig";
+import ProfileDropdown from "./ProfileDropdown";
 
 const scrollToTop = () => {
   window.scrollTo(0, 0);
 };
 
-const CustomLink = ({
+const generateLink = ({
   page,
   selectedPage,
   setSelectedPage,
@@ -26,7 +29,12 @@ const CustomLink = ({
     fetchCart();
   };
 
-  return (
+  const linkContent = label === "ACCOUNT" ? <ProfileDropdown /> : label;
+  return label === "ACCOUNT" ? (
+    <span aria-label={`Link to the ${page === "" ? "Home" : label} page`}>
+      {linkContent}
+    </span>
+  ) : (
     <Link
       to={page === "" ? "/" : `/${page}`}
       className={`${
@@ -38,7 +46,7 @@ const CustomLink = ({
       aria-label={`Link to the ${page === "" ? "Home" : label} page`}
       onClick={handleClick}
     >
-      {label}
+      {linkContent}
     </Link>
   );
 };
@@ -50,56 +58,20 @@ const Navbar = ({ isLoggedIn, cart, fetchCart }) => {
 
   const location = useLocation();
 
+  const { commonItems } = getNavbarConfig(isLoggedIn, cart);
+  const navItems = [...commonItems.filter((item) => item.show)];
+
   useEffect(() => {
     fetchCart();
-  }, [fetchCart, cart.totalQuantity]);
-
-  const commonItems = [
-    { path: "/products", label: "PRODUCTS", show: true },
-    { path: "/profile", label: "PROFILE", show: isLoggedIn },
-    { path: "/signin", label: "SIGN IN", show: !isLoggedIn },
-    {
-      path: "/cart",
-      label: `CART${cart.totalQuantity ? ` (${cart.totalQuantity})` : ""}`,
-      show: true,
-    },
-  ];
-  const navItems = [
-    ...commonItems.filter((item) => item.show)
-  ];
-
-  useEffect(() => {
     const pathname = location.pathname;
     const currentPage = pathname === "/" ? "Home" : pathname.substring(1);
-    const titleMap = {
-      Home: "Pedal Crafters",
-      products: "Products - Pedal Crafters",
-      "products/add": "Add Products - Pedal Crafters",
-      "products/update": "Update Product - Pedal Crafters",
-      cart: "Cart - Pedal Crafters",
-      checkout: "Checkout - Pedal Crafters",
-      orderSuccess: "Order Success - Pedal Crafters",
-      "admin/products": "Edit Products - Pedal Crafters",
-      "admin/users": "Users - Pedal Crafters",
-      profile: "Profile - Pedal Crafters",
-      "profile/update": "Update Profile - Pedal Crafters",
-      "users/orders": "Order History - Pedal Crafters",
-      signin: "Sign in - Pedal Crafters",
-      register: "Register - Pedal Crafters",
-    };
-
-    const isProductRoute = pathname.match(/^\/products\/\d+(\/update)?$/);
-    if (isProductRoute) {
-      document.title =
-        titleMap[isProductRoute[1] ? "products/update" : "products"] ||
-        "404 Not Found - Pedal Crafters";
-    } else {
-      document.title =
-        titleMap[currentPage] || "404 Not Found - Pedal Crafters";
-    }
+    const isProductRoute = pathname.match(/^\/products\/\d+(\/update)?/);
+    document.title =
+      titleMap[isProductRoute ? "products/update" : currentPage] ||
+      "404 Not Found - Pedal Crafters";
 
     setSelectedPage(currentPage);
-  }, [location.pathname, selectedPage]);
+  }, [location.pathname, selectedPage, fetchCart, cart.totalQuantity]);
 
   useEffect(() => {
     setIsMenuToggled(false);
@@ -107,7 +79,7 @@ const Navbar = ({ isLoggedIn, cart, fetchCart }) => {
     if (cart.totalQuantity > 0) {
       fetchCart();
     }
-  }, [cart.totalQuantity, selectedPage]);
+  }, [cart.totalQuantity, selectedPage, fetchCart]);
 
   useEffect(() => {
     document.documentElement.classList.toggle("mobile-nav-open", isMenuToggled);
@@ -128,7 +100,7 @@ const Navbar = ({ isLoggedIn, cart, fetchCart }) => {
           <Link
             to='/'
             aria-label='Pedal Crafters Logo'
-            className='hover:text-[#FFA364] transition duration-500 text-[#321E1E]'
+            className='hover:text-[#FFA364] transition duration-500 text-[#321E1E] items-start'
             onClick={() => {
               scrollToTop();
               setIsMenuToggled(false);
@@ -140,15 +112,16 @@ const Navbar = ({ isLoggedIn, cart, fetchCart }) => {
         {isDesktop ? (
           <div className='flex gap-8'>
             {navItems.map((item, index) => (
-              <CustomLink
-                key={index}
-                page={item.path === "/" ? "" : item.path.substring(1)}
-                selectedPage={selectedPage}
-                setSelectedPage={setSelectedPage}
-                label={item.label}
-                onClick={() => setIsMenuToggled(false)}
-                fetchCart={fetchCart}
-              />
+              <React.Fragment key={index}>
+                {generateLink({
+                  page: item.path === "/" ? "" : item.path.substring(1),
+                  selectedPage,
+                  setSelectedPage,
+                  label: item.label,
+                  onClick: () => setIsMenuToggled(false),
+                  fetchCart,
+                })}
+              </React.Fragment>
             ))}
           </div>
         ) : (
@@ -191,15 +164,16 @@ const Navbar = ({ isLoggedIn, cart, fetchCart }) => {
             </div>
             <div className='flex flex-col text-center gap-6 justify-center min-h-[75vh]'>
               {navItems.map((item, index) => (
-                <CustomLink
-                  key={index}
-                  page={item.path === "/" ? "" : item.path.substring(1)}
-                  selectedPage={selectedPage}
-                  setSelectedPage={setSelectedPage}
-                  label={item.label}
-                  onClick={() => setIsMenuToggled(false)}
-                  fetchCart={fetchCart}
-                />
+                <React.Fragment key={index}>
+                  {generateLink({
+                    page: item.path === "/" ? "" : item.path.substring(1),
+                    selectedPage,
+                    setSelectedPage,
+                    label: item.label,
+                    onClick: () => setIsMenuToggled(false),
+                    fetchCart,
+                  })}
+                </React.Fragment>
               ))}
             </div>
           </div>
@@ -221,6 +195,7 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(logout());
     },
     fetchCart: () => dispatch(fetchCart()),
+    handleLogout: logout,
   };
 };
 

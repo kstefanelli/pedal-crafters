@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
-import { fetchProducts } from "../store/allProducts";
-import { addToCart } from "../store/cart";
+import { fetchProducts } from "../../store/allProducts";
+import { addToCart } from "../../store/cart";
 import ProductItem from "./ProductItem";
-import CategorySearch from "./CategorySearch";
+import CategorySearch from "../Search/CategorySearch";
 
 const Products = ({ products, getProducts, addToCart }) => {
   const [filtered, setFiltered] = useState("All");

@@ -4,21 +4,21 @@ import { withRouter, Route, Switch } from "react-router-dom";
 import { SignIn } from "./components/AuthForm";
 import Home from "./components/Home";
 import { me } from "./store";
-import Products from "./components/Products";
-import Cart from "./components/Cart";
-import Admin from "./components/Admin";
-import SingleProduct from "./components/SingleProduct";
-import OrderHistory from "./components/OrderHistory";
-import UserProfile from "./components/UserProfile";
-import CreateProduct from "./components/CreateProduct";
-import CreateUser from "./components/CreateUser";
-import UpdateProduct from "./components/UpdateProduct";
-import UpdateUser from "./components/UpdateUser";
+import Products from "./components/Products/Products";
+import Cart from "./components/Order/Cart";
+import Admin from "./components/Admin/Admin";
+import SingleProduct from "./components/Products/SingleProduct";
+import OrderHistory from "./components/Order/OrderHistory";
+import UserProfile from "./components/User/UserProfile";
+import CreateProduct from "./components/Products/CreateProduct";
+import CreateUser from "./components/User/CreateUser";
+import UpdateProduct from "./components/Products/UpdateProduct";
+import UpdateUser from "./components/User/UpdateUser";
 import NotFoundPage from "./components/NotFoundPage";
-import OrderSuccess from "./components/OrderSuccess";
-import Checkout from "./components/Checkout";
-import AdminUsers from "./components/AdminUsers";
-import AdminShop from "./components/AdminShop";
+import OrderSuccess from "./components/Order/OrderSuccess";
+import Checkout from "./components/Order/Checkout";
+import AdminUsers from "./components/Admin/AdminUsers";
+import AdminShop from "./components/Admin/AdminShop";
 
 const Routes = ({ isLoggedIn, isAdmin, loadInitialData }) => {
   useEffect(() => {

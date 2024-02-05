@@ -1,5 +1,5 @@
 import React from "react";
-import useOrderFetching from "../hooks/useOrderFetching";
+import useOrderFetching from "../../hooks/useOrderFetching";
 import OrderItem from "./OrderItem";
 
 const OrderHistory = () => {

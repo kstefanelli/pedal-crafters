@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import { fetchUsers } from "../store/allUsers";
+import { fetchUsers } from "../../store/allUsers";
 
 const UserGridItem = ({ user, isHeader }) => (
   <div

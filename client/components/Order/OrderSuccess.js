@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
-import { emptyCart } from "../store/cart";
+import { emptyCart } from "../../store/cart";
 
 const OrderSuccess = ({ cart, emptyCart }) => {
   const [orderNumber, setOrderNumber] = useState(null);

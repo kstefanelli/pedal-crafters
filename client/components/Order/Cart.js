@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import { deleteFromCart, fetchCart, updateQuantity } from "../store/cart";
+import { deleteFromCart, fetchCart, updateQuantity } from "../../store/cart";
 import { Link } from "react-router-dom";
 
 const formatCurrency = (value) => {

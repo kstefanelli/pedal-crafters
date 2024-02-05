@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import { fetchProduct, updateProduct } from "../store/singleProduct";
-import { deleteProduct } from "../store/allProducts";
+import { fetchProduct, updateProduct } from "../../store/singleProduct";
+import { deleteProduct } from "../../store/allProducts";
 
 const InputField = ({
   label,
