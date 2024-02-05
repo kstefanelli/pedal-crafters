@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import { createProduct } from "../store/allProducts";
+import { createProduct } from "../../store/allProducts";
 
 const CreateProduct = ({ createProduct, history }) => {
   const [productInfo, setProductInfo] = useState({

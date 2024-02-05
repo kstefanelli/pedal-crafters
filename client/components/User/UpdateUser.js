@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
-import { updateUser, fetchUser } from "../store/singleUser";
+import { updateUser, fetchUser } from "../../store/singleUser";
 
 const Input = ({ type, name, label, placeholder, value, onChange }) => (
   <div className='mb-4'>

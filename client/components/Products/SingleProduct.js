@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import { fetchProduct } from "../store/singleProduct";
-import { addToCart } from "../store/cart";
+import { fetchProduct } from "../../store/singleProduct";
+import { addToCart } from "../../store/cart";
 import { Link } from "react-router-dom";
 
 const SingleProduct = ({ product, getSingleProduct, addToCart, match }) => {

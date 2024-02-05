@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
-import { createUser } from "../store/allUsers";
+import { createUser } from "../../store/allUsers";
 
 const Input = ({ type, name, placeholder, required, onChange}) => (
   <input

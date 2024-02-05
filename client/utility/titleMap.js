@@ -1,0 +1,16 @@
+export const titleMap = {
+  Home: "Pedal Crafters",
+  products: "Products - Pedal Crafters",
+  "products/add": "Add Products - Pedal Crafters",
+  "products/update": "Update Product - Pedal Crafters",
+  cart: "Cart - Pedal Crafters",
+  checkout: "Checkout - Pedal Crafters",
+  orderSuccess: "Order Success - Pedal Crafters",
+  "admin/products": "Edit Products - Pedal Crafters",
+  "admin/users": "Users - Pedal Crafters",
+  profile: "Profile - Pedal Crafters",
+  "profile/update": "Update Profile - Pedal Crafters",
+  "users/orders": "Order History - Pedal Crafters",
+  signin: "Sign in - Pedal Crafters",
+  register: "Register - Pedal Crafters",
+};
