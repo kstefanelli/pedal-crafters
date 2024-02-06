@@ -65,11 +65,6 @@ Navigate Pedal Crafters with the following credentials or sign up and create you
 
 ## Next Steps:
 
-**User Interface and Styling**
-
-- Streamline all buttons for a consistent user experience.
-- Update styles to be responsive and cohesive.
-
 **Homepage and Content Pages**
 
 - Add a homepage with a featured product section.
@@ -90,7 +85,6 @@ Navigate Pedal Crafters with the following credentials or sign up and create you
 
 **User Authentication and Experience**
 
-- Add a dropdown for user profiles.
 - Implement persistent carts for guest users during account creation.
 - Allow non-logged-in users to maintain a persistent cart upon logging in.
 
@@ -98,11 +92,6 @@ Navigate Pedal Crafters with the following credentials or sign up and create you
 
 - Add TypeScript for improved code quality.
 - Strengthen Application by Expanding Test Coverage.
-
-**Data Handling and Storage**
-
-- Optimize image storage and data handling.
-- Explore better ways to store images and data.
 
 **User Interaction**
 
@@ -112,4 +101,4 @@ Navigate Pedal Crafters with the following credentials or sign up and create you
 
 - Add support for promotional codes to offer discounts during checkout.
 - Implement a section for personalized product recommendations based on users' previous purchases.
-- Provide administrators with the ability to delete user accounts.
+- Provide administrators with the ability to delete/add/update user accounts.
